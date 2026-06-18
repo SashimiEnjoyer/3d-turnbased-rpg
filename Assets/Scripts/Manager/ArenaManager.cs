@@ -12,7 +12,7 @@ public class ArenaManager : MonoBehaviour
     {
         foreach (var item in GameManager.instance.GetEnemiesToFight())
         {
-            GameObject enemy = Instantiate(GameManager.instance.GetEnemy(item), enemiesPoints[0].position, Quaternion.identity);
+            GameObject enemy = Instantiate(item.characterPrefab, enemiesPoints[0].position, Quaternion.identity);
             enemies.Add(enemy.GetComponent<Enemy>());
         }
     }

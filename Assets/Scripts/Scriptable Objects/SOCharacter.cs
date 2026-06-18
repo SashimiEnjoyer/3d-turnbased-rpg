@@ -8,6 +8,9 @@ public class SOCharacter : ScriptableObject
     public Sprite charaSprite;
     public bool isFriend;
 
+    [Header("Assets")]
+    public GameObject characterPrefab;
+
     [Header("Stats")]
     public float health;
     public float baseDamage;

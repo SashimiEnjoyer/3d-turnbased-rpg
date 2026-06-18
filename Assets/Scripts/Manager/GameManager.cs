@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
 
     public InGameCharaDatabase charaDatabase;
     public PlayManager playManager;
+    public PlayerDataManager playerDataManager;
+
+    [SerializeField] private SOCharacter defaultChara;
 
     private void Awake()
     {
@@ -19,6 +22,11 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    public void InitAllManagers()
+    {
+        playerDataManager.PlayerDataInit();
     }
 
     public List<SOCharacter> GetEnemiesToFight()
@@ -34,5 +42,15 @@ public class GameManager : MonoBehaviour
     public GameObject GetEnemy(SOCharacter chara)
     {
         return charaDatabase.GetEnemy(chara);
+    }
+
+    public SOCharacter GetDefaultChara()
+    {
+        return defaultChara;
+    }
+
+    public PlayerData GetPlayerData()
+    {
+        return playerDataManager.playerData;
     }
 }

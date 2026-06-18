@@ -15,5 +15,6 @@ MonoBehaviour:
   charaName: Chara One
   charaSprite: {fileID: 21300000, guid: 751aa1b6637101946b2fdbb7aa27d6ad, type: 3}
   isFriend: 1
+  characterPrefab: {fileID: 416062841054088562, guid: b96fdc07046a160418e04c18ee472021, type: 3}
   health: 10
   baseDamage: 1
