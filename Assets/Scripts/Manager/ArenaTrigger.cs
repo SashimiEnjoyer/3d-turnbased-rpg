@@ -11,4 +11,12 @@ public class ArenaTrigger : MonoBehaviour
 
         SceneManager.LoadSceneAsync("Fight Arena");
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            GoToArena();
+        }
+    }
 }

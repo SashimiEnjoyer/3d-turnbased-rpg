@@ -13,5 +13,5 @@ public class Character : MonoBehaviour
         baseDmg = characterData.baseDamage;
     }
 
-    public virtual void InitCharacter() { }
+    public virtual void InitCharacter(SOCharacter data) { }
 }

@@ -47,7 +47,9 @@ MonoBehaviour:
   characterDatabase:
   - charaDetail: {fileID: 11400000, guid: 3278f24c6ae64694bac5b8231821aab8, type: 2}
     prefab: {fileID: 416062841054088562, guid: b96fdc07046a160418e04c18ee472021, type: 3}
-  enemyDatabase: []
+  enemyDatabase:
+  - charaDetail: {fileID: 11400000, guid: ca7cdcdb0363e2640a8ad2ab81d79ecb, type: 2}
+    prefab: {fileID: 0}
 --- !u!1 &4640691631174392402
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,3 +158,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa03c0fe8d45e784f81ceea96bbbae9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataManager
+  currentCharacterIndex: 0
