@@ -14,4 +14,5 @@ public class SOCharacter : ScriptableObject
     [Header("Stats")]
     public float health;
     public float baseDamage;
+    public int baseSpeed;
 }

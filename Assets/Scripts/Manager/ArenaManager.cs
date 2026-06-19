@@ -6,8 +6,13 @@ public class ArenaManager : MonoBehaviour
     [SerializeField] private Transform[] charactersPoints;
     [SerializeField] private Transform[] enemiesPoints;
 
+    [SerializeField] private ArenaUiManage arenaUiManage;
+
     private List<Enemy> enemies = new();
     private List<Hero> heroes = new();
+
+    [SerializeField] private List<Character> charaSequences = new();
+    private int currentSequenceIndex = 0;
 
     private void Awake()
     {
@@ -18,6 +23,8 @@ public class ArenaManager : MonoBehaviour
             Enemy enemy = Instantiate(item.characterPrefab, enemiesPoints[temp]).GetComponent<Enemy>();
             enemy.InitCharacter(item);
             enemies.Add(enemy);
+            arenaUiManage.InitCharaSeqUi(enemy);
+            charaSequences.Add(enemy);
         }
 
         for (int i = 0; i < GameManager.instance.playerDataManager.playerData.ownedCharacters.Count; i++)
@@ -27,7 +34,11 @@ public class ArenaManager : MonoBehaviour
             Hero hero = Instantiate(item.characterPrefab, charactersPoints[temp]).GetComponent<Hero>();
             hero.InitCharacter(item);
             heroes.Add(hero);
+            arenaUiManage.InitCharaSeqUi(hero);
+            charaSequences.Add(hero);
         }
+
+        charaSequences.Sort((x, y) => y.GetSpeed().CompareTo(x.GetSpeed()));
     }
 
     public void BackToRoam()
