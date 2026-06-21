@@ -34,7 +34,7 @@ public class Hero : Character
     }
 
 
-    public virtual void AttackPattern1(UnityAction onDoneAttack)
+    public virtual void AttackPattern1(Enemy target, UnityAction onDoneAttack)
     {
         Debug.Log("attack 1 parent");
     }

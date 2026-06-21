@@ -34,6 +34,8 @@ public class ArenaCharactersController : MonoBehaviour
     private List<CharacterSequence> sortedCharaSequences = new();
 
     private CharacterSequence currentHeroTurn;
+    private bool isHeroTurn = false;
+    private Enemy selectedEnemy;
 
     public void AddAllCharaInArena(Character chara)
     {
@@ -79,8 +81,26 @@ public class ArenaCharactersController : MonoBehaviour
         return sortedCharaSequences.FirstOrDefault(u => u.GetCharacter() is Hero)?.GetCharacterContainer();
     }
 
+    public Hero GetDefaultHero()
+    {
+        return sortedCharaSequences.Find(u => u.GetCharacter() is Hero).GetCharacter() as Hero;
+    }
+
+    public Enemy GetManualSelectedEnemy()
+    {
+        if (selectedEnemy == null)
+            return selectedEnemy = sortedCharaSequences.FirstOrDefault(u => u.GetCharacter() is Enemy).GetCharacter() as Enemy;
+        else
+            return selectedEnemy;
+    }
+
+    public void CheckCurrentTurnStatus(bool isHero) => isHeroTurn = isHero;
+
     private void Update()
     {
+        if (!isHeroTurn)
+            return;
+
         if(Mouse.current.leftButton.wasPressedThisFrame)
             DetectObjectWithRaycast();
     }
@@ -91,7 +111,7 @@ public class ArenaCharactersController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, characterMask))
         {
-            Character hitObject = hit.transform.GetComponentInParent<Character>();
+            selectedEnemy = hit.transform.GetComponentInParent<Character>() as Enemy;
         }
     }
 }

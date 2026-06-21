@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 52656724}
   - component: {fileID: 52656725}
   - component: {fileID: 52656726}
+  - component: {fileID: 52656727}
   m_Layer: 0
   m_Name: Arena Manager
   m_TagString: Untagged
@@ -167,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ArenaManager
   arenaUiManage: {fileID: 52656725}
   arenaCharacterController: {fileID: 52656726}
+  arenaSequenceController: {fileID: 52656727}
   currentFightTurn: 0
 --- !u!114 &52656725
 MonoBehaviour:
@@ -208,6 +210,18 @@ MonoBehaviour:
   - {fileID: 1732382564}
   - {fileID: 1487273971}
   - {fileID: 911765147}
+--- !u!114 &52656727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52656722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08ce3b73a2dd04c47a114495becb9574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaSequenceController
 --- !u!1 &167196184
 GameObject:
   m_ObjectHideFlags: 0

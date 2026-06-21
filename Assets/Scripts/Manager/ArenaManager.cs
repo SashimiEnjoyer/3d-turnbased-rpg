@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum FightTurn
@@ -13,9 +12,9 @@ public enum FightTurn
 
 public class ArenaManager : MonoBehaviour
 {
-
     [SerializeField] private ArenaUiManage arenaUiManage;
     [SerializeField] private ArenaCharactersController arenaCharacterController;
+    [SerializeField] private ArenaSequenceController arenaSequenceController;
 
     private List<Enemy> enemies = new();
     private List<Hero> heroes = new();
@@ -39,6 +38,7 @@ public class ArenaManager : MonoBehaviour
             int temp = i;
             SOCharacter item = GameManager.instance.GetEnemiesToFight()[temp];
             Enemy enemy = Instantiate(item.characterPrefab).GetComponent<Enemy>();
+            enemy.gameObject.name = $"Enemy {temp}";
             enemy.InitCharacter(item);
             enemies.Add(enemy);
             arenaUiManage.InitCharaSeqUi();
@@ -60,7 +60,13 @@ public class ArenaManager : MonoBehaviour
         BuildSequence();
         CheckThisTurn();
 
-        arenaUiManage.InitActionButtons(()=> DoAttackPattern(0), () => DoAttackPattern(1), () => DoAttackPattern(2), () => DoAttackPattern(3)); 
+        arenaUiManage.InitActionButtons(
+            ()=> arenaSequenceController.ExecuteHeroAttack(0, arenaCharacterController.GetManualSelectedEnemy()), 
+            () => arenaSequenceController.ExecuteHeroAttack(1, arenaCharacterController.GetManualSelectedEnemy()), 
+            () => arenaSequenceController.ExecuteHeroAttack(2, arenaCharacterController.GetManualSelectedEnemy()), 
+            () => arenaSequenceController.ExecuteHeroAttack(3, arenaCharacterController.GetManualSelectedEnemy())
+            ); 
+
         arenaUiManage.InitSkipButtons(BackToRoam, NextSequence);   
     }
 
@@ -74,22 +80,24 @@ public class ArenaManager : MonoBehaviour
     {
         Character ch = arenaCharacterController.GetSortedCharaSequence()[currentSequenceIndex].GetCharacter();
         currentFightTurn = ch.GetCharaDetail().isFriend ? FightTurn.HeroTurn : FightTurn.EnemyTurn;
+        arenaCharacterController.CheckCurrentTurnStatus(currentFightTurn == FightTurn.HeroTurn);
 
         switch (currentFightTurn)
         {
             case FightTurn.EnemyTurn:
                 arenaUiManage.SetHeroTurnPanelState(false);
-                currentTurnEnemy = ch.GetComponent<Enemy>();
+                currentTurnEnemy = ch as Enemy;
 
-                currentTurnEnemy.DoAttack(NextSequence);
-
+                currentTurnEnemy.DoAttack(arenaCharacterController.GetDefaultHero() ,NextSequence);
+                //arenaSequenceController.AssignCharacterForSequence(arenaCharacterController.GetCurrentTurnHero(currentTurnHero));
                 break;
             case FightTurn.HeroTurn:
 
-                currentTurnHero = ch.GetComponent<Hero>();
+                currentTurnHero = ch as Hero;
                 arenaUiManage.SetHeroTurnPanelState(true);
                 
                 arenaUiManage.SetCurrentCharaUi(currentTurnHero);
+                arenaSequenceController.AssignCharacterForSequence(arenaCharacterController.GetCurrentTurnHero(currentTurnHero), NextSequence);
                 break;
             default:
                 arenaUiManage.SetHeroTurnPanelState(false);
@@ -106,38 +114,16 @@ public class ArenaManager : MonoBehaviour
             BuildSequence();
             currentSequenceIndex = 0;
             currentRound++;
+
+            if (currentRound >= 3)
+                BackToRoam();
         }
+
         CheckThisTurn();
     }
 
     public void BackToRoam()
     {
         SceneManager.LoadSceneAsync("Roam");
-    }
-
-    private int atkPatternIdx = 0;
-    private bool isAttackPattern1;
-
-    public void DoAttackPattern(int idx)
-    {
-        if(atkPatternIdx != idx)
-        {
-            AttackPatternConfig config = currentTurnHero.GetAttackConfig(idx);
-
-            if(config.IsBuffCamera())
-            {
-                arenaCharacterController.GetCurrentTurnHero(currentTurnHero).GetCharacterContainer().SetActiveBuffCam();
-            }
-            else
-            {
-                arenaCharacterController.GetCurrentTurnHero(currentTurnHero).GetCharacterContainer().SetActiveBaseCam();
-            }
-
-            atkPatternIdx = idx;
-        }
-        else
-        {
-            currentTurnHero.AttackPattern1(NextSequence);
-        }
     }
 }

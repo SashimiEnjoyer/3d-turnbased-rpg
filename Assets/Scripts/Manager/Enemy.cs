@@ -9,8 +9,9 @@ public class Enemy : Character
         base.InitCharacter(data);
     }
 
-    public void DoAttack(UnityAction onDoneAttack)
+    public void DoAttack(Hero target, UnityAction onDoneAttack)
     {
+        Debug.Log(gameObject.name + "is Attacking " + target.name);
         StartCoroutine(AttackSequence(onDoneAttack));
     }
 
