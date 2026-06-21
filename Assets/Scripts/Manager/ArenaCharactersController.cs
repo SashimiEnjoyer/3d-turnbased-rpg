@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +22,7 @@ public class CharacterSequence
 
 public class ArenaCharactersController : MonoBehaviour
 {
+    [SerializeField] private TargetIndicatorUi targetIndicatorUi;
     [SerializeField] private LayerMask characterMask;
     [SerializeField] private ArenaCharacterContainer[] charactersPoints;
     [SerializeField] private ArenaCharacterContainer[] enemiesPoints;
@@ -112,6 +112,7 @@ public class ArenaCharactersController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, characterMask))
         {
             selectedEnemy = hit.transform.GetComponentInParent<Character>() as Enemy;
+            targetIndicatorUi.MoveIndicatorToTarget(hit.transform);
         }
     }
 }
