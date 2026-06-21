@@ -1,18 +1,56 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ArenaUiManage : MonoBehaviour
 {
     [SerializeField] private GameObject charaSeqUiPrefab;
     [SerializeField] private Transform seqUiParent;
+    [SerializeField] private ArenaHeroTurnPanel arenaHeroTurnPanel;
 
     [SerializeField] private List<CharaSequenceUiPanel> seqUi = new();
 
-    public void InitCharaSeqUi(Character chara)
+    public List<CharaSequenceUiPanel> SequencesUi;
+
+    public void InitCharaSeqUi()
     {
         CharaSequenceUiPanel charaSeqUi = Instantiate(charaSeqUiPrefab, seqUiParent).GetComponent<CharaSequenceUiPanel>();
-        charaSeqUi.InitUi(chara);
         seqUi.Add(charaSeqUi);
+    }
+
+    public void SetHeroTurnPanelState(bool isActive) 
+    {
+        arenaHeroTurnPanel.gameObject.SetActive(isActive);
+    }
+
+    public void SetCurrentCharaUi(Character chara)
+    {
+        arenaHeroTurnPanel.SetCurrentCharaUi(chara);
+    }
+
+    public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
+    {
+        arenaHeroTurnPanel.InitActionButtons(atk1, atk2, atk3, ult);
+    }
+
+    public void InitSkipButtons(UnityAction flee, UnityAction skip)
+    {
+        arenaHeroTurnPanel.InitSkipButtons(flee, skip);
+    }
+
+    public void ArrangeSequenceUi(List<Character> charas)
+    {
+        for (int i = 0; i < seqUi.Count; i++)
+        {
+            int temp = i;
+            if (temp > charas.Count)
+            {
+                seqUi[temp].gameObject.SetActive(false);
+                return;
+            }
+
+            seqUi[temp].InitUi(charas[temp]);
+        }
     }
 }

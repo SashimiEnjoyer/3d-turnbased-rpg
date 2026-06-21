@@ -208,7 +208,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3043782119937716507}
-  m_Layer: 0
+  - component: {fileID: 6566443368287338805}
+  m_Layer: 3
   m_Name: Geometry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,6 +232,27 @@ Transform:
   - {fileID: 4553444097408266716}
   m_Father: {fileID: 965435874529325335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6566443368287338805
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612468508637741658}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.40066436, y: 1.4590654, z: 0.23489088}
+  m_Center: {x: 0.006375894, y: 0.86074805, z: -0.006375879}
 --- !u!1 &614196281386205908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,7 +1887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4553444097408266716}
   - component: {fileID: 4077695517424157167}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Armature_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
