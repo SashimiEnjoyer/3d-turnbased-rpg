@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - component: {fileID: 965435874529325335}
   - component: {fileID: 2772101966281837293}
-  - component: {fileID: 8881099800545918832}
+  - component: {fileID: 3474035873490344689}
   m_Layer: 8
   m_Name: Character One
   m_TagString: Player
@@ -124,7 +124,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8881099800545918832
+--- !u!114 &3474035873490344689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,10 +133,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 416062841054088562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b661855e3b5b55e428b817475a198090, type: 3}
+  m_Script: {fileID: 11500000, guid: 18829eb1f9f47584797db2b6c64f4911, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hero
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterOneManager
   characterData: {fileID: 11400000, guid: 3278f24c6ae64694bac5b8231821aab8, type: 2}
+  attackPatternConfig:
+  - attackType: 0
+    isMultiTarget: 0
+  - attackType: 1
+    isMultiTarget: 0
+  - attackType: 2
+    isMultiTarget: 0
+  - attackType: 0
+    isMultiTarget: 0
 --- !u!1 &496878478689474888
 GameObject:
   m_ObjectHideFlags: 0

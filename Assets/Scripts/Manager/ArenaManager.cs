@@ -23,17 +23,11 @@ public class ArenaManager : MonoBehaviour
     private Hero currentTurnHero;
     private Enemy currentTurnEnemy;
 
-   
     private int currentSequenceIndex = 0;
     private int currentRound = 0;
 
     [SerializeField] private FightTurn currentFightTurn;
     public FightTurn CurrentFightTurn => currentFightTurn;
-
-    private UnityAction atk1Pattern;
-    private UnityAction atk2Pattern;
-    private UnityAction atk3Pattern;
-    private UnityAction ultPattern;
 
     private void Start()
     {
@@ -66,7 +60,7 @@ public class ArenaManager : MonoBehaviour
         BuildSequence();
         CheckThisTurn();
 
-        arenaUiManage.InitActionButtons(atk1Pattern, atk2Pattern, atk3Pattern, ultPattern); 
+        arenaUiManage.InitActionButtons(()=> DoAttackPattern(0), () => DoAttackPattern(1), () => DoAttackPattern(2), () => DoAttackPattern(3)); 
         arenaUiManage.InitSkipButtons(BackToRoam, NextSequence);   
     }
 
@@ -86,16 +80,14 @@ public class ArenaManager : MonoBehaviour
             case FightTurn.EnemyTurn:
                 arenaUiManage.SetHeroTurnPanelState(false);
                 currentTurnEnemy = ch.GetComponent<Enemy>();
+
+                currentTurnEnemy.DoAttack(NextSequence);
+
                 break;
             case FightTurn.HeroTurn:
 
                 currentTurnHero = ch.GetComponent<Hero>();
                 arenaUiManage.SetHeroTurnPanelState(true);
-
-                atk1Pattern = currentTurnHero.AttackPattern1;
-                atk2Pattern = currentTurnHero.AttackPattern2;
-                atk3Pattern = currentTurnHero.AttackPattern3;
-                ultPattern = currentTurnHero.UltimatePattern;
                 
                 arenaUiManage.SetCurrentCharaUi(currentTurnHero);
                 break;
@@ -113,6 +105,7 @@ public class ArenaManager : MonoBehaviour
         {
             BuildSequence();
             currentSequenceIndex = 0;
+            currentRound++;
         }
         CheckThisTurn();
     }
@@ -120,5 +113,31 @@ public class ArenaManager : MonoBehaviour
     public void BackToRoam()
     {
         SceneManager.LoadSceneAsync("Roam");
+    }
+
+    private int atkPatternIdx = 0;
+    private bool isAttackPattern1;
+
+    public void DoAttackPattern(int idx)
+    {
+        if(atkPatternIdx != idx)
+        {
+            AttackPatternConfig config = currentTurnHero.GetAttackConfig(idx);
+
+            if(config.IsBuffCamera())
+            {
+                arenaCharacterController.GetCurrentTurnHero(currentTurnHero).GetCharacterContainer().SetActiveBuffCam();
+            }
+            else
+            {
+                arenaCharacterController.GetCurrentTurnHero(currentTurnHero).GetCharacterContainer().SetActiveBaseCam();
+            }
+
+            atkPatternIdx = idx;
+        }
+        else
+        {
+            currentTurnHero.AttackPattern1(NextSequence);
+        }
     }
 }

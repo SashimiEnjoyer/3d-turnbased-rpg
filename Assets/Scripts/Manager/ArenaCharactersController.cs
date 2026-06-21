@@ -33,25 +33,27 @@ public class ArenaCharactersController : MonoBehaviour
     private List<CharacterSequence> allCharaInArena = new();
     private List<CharacterSequence> sortedCharaSequences = new();
 
+    private CharacterSequence currentHeroTurn;
+
     public void AddAllCharaInArena(Character chara)
     {
         if (chara is Hero)
         {
             chara.transform.parent = charactersPoints[characterPlacementIdx].transform;
             chara.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            allCharaInArena.Add(new CharacterSequence(chara, charactersPoints[allCharaInArena.Count]));
+            allCharaInArena.Add(new CharacterSequence(chara, charactersPoints[characterPlacementIdx]));
             characterPlacementIdx++;
         }
         else
         {
             chara.transform.parent = enemiesPoints[enemyPlacementIdx].transform;
             chara.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-            allCharaInArena.Add(new CharacterSequence(chara, enemiesPoints[allCharaInArena.Count]));
+            allCharaInArena.Add(new CharacterSequence(chara, enemiesPoints[enemyPlacementIdx]));
             enemyPlacementIdx++;
         }
     }
 
-    public List<CharacterSequence> GetSortedCharaSequence() 
+    public List<CharacterSequence> GetSortedCharaSequence()
     {
         sortedCharaSequences.Clear();
 
@@ -62,6 +64,19 @@ public class ArenaCharactersController : MonoBehaviour
     public ArenaCharacterContainer GetSelectedEnemy()
     {
         return sortedCharaSequences.FirstOrDefault(u => u.GetCharacter() is Enemy)?.GetCharacterContainer();
+    }
+
+    public CharacterSequence GetCurrentTurnHero(Hero myHero)
+    {
+        if (currentHeroTurn == null || currentHeroTurn.GetCharacter() as Hero == myHero)
+            return currentHeroTurn = allCharaInArena.Find(u => u.GetCharacter() as Hero == myHero);
+        else
+            return currentHeroTurn;
+    }
+
+    public ArenaCharacterContainer GetHeroForEnemy(Hero myHero)
+    {
+        return sortedCharaSequences.FirstOrDefault(u => u.GetCharacter() is Hero)?.GetCharacterContainer();
     }
 
     private void Update()
