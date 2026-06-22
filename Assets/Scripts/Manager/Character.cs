@@ -1,8 +1,11 @@
+using Animancer;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character : MonoBehaviour
 {
     [SerializeField] protected SOCharacter characterData;
+    [SerializeField] protected AnimancerComponent animComponent;
 
     protected float maxHp;
     protected float currentHp;
@@ -29,5 +32,6 @@ public class Character : MonoBehaviour
         maxHp = data.health;
         finalDmg = data.baseDamage;
         speed = data.baseSpeed;
+
     }
 }

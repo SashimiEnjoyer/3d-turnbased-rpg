@@ -4,22 +4,39 @@ using UnityEngine.Events;
 
 public class Enemy : Character
 {
+    [SerializeField] private AttackPatternConfig[] attackConfigs;
+
+    private UnityAction onDoneAttack;
+    protected Hero targetedHero;
+
     public override void InitCharacter(SOCharacter data)
     {
         base.InitCharacter(data);
+
+        attackConfigs[0].animation.Events.AddCallback(0, Attack1Callback);
+        attackConfigs[0].animation.Events.OnEnd = () =>
+        {
+            Debug.Log("Animation Ended");
+            onDoneAttack?.Invoke();
+            animComponent.Stop();
+        };
     }
 
-    public void DoAttack(Hero target, UnityAction onDoneAttack)
+    public void DoAttack(Hero target, UnityAction onDone)
     {
-        Debug.Log(gameObject.name + " is Attacking " + target.name);
-        StartCoroutine(AttackSequence(onDoneAttack));
+        targetedHero = target;
+        onDoneAttack = onDone;
+        animComponent.Play(attackConfigs[0].animation);
     }
 
-    private IEnumerator AttackSequence(UnityAction onDoneAttack)
+    public void AttackedByPlayer()
     {
-        Debug.Log("Enemy Attack 1");
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Finish Enemy Attack 1");
-        onDoneAttack?.Invoke();
+        isAlive = false;
+        gameObject.SetActive(false);
+    }
+
+    private void Attack1Callback()
+    {
+        targetedHero.AttackedByEnemy();
     }
 }

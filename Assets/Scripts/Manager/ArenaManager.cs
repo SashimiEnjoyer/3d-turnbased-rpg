@@ -18,7 +18,7 @@ public class ArenaManager : MonoBehaviour
     private List<Enemy> enemies = new();
     private List<Hero> heroes = new();
 
-    private List<CharacterSequence> sortedCharacterSequence = new();
+    //private List<CharacterSequence> sortedCharacterSequence;
 
     private Hero currentTurnHero;
     private Enemy currentTurnEnemy;
@@ -73,14 +73,20 @@ public class ArenaManager : MonoBehaviour
 
     private void BuildSequence()
     {
-        sortedCharacterSequence = arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence();
-        var getSortedCharacter = sortedCharacterSequence.Select(u => u.GetCharacter()).ToList();
+        var getSortedCharacter = arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence().Select(u => u.GetCharacter()).ToList();
         arenaUiManage.ArrangeSequenceUi(getSortedCharacter);
     }
 
     public void CheckThisTurn()
     {
-        Character ch = sortedCharacterSequence[currentSequenceIndex].GetCharacter();
+        Character ch = arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence()[currentSequenceIndex].GetCharacter();
+        
+        if(!ch.CheckIsAlive())
+        {
+            NextSequence();
+            return;
+        }
+
         currentFightTurn = ch.GetCharaDetail().isFriend ? FightTurn.HeroTurn : FightTurn.EnemyTurn;
         arenaSequenceController.ArenaCharacterController.CheckCurrentTurnStatus(currentFightTurn == FightTurn.HeroTurn);
 
@@ -89,14 +95,14 @@ public class ArenaManager : MonoBehaviour
             case FightTurn.EnemyTurn:
                 arenaUiManage.SetHeroTurnPanelState(false);
                 currentTurnEnemy = ch as Enemy;
-
-                //currentTurnEnemy.DoAttack( ,NextSequence);
+                currentTurnHero = null;
                 arenaSequenceController.InitCurrentTurnCharacter(arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence()[currentSequenceIndex], NextSequence);
-                //arenaSequenceController.ExecuteEnemyAttack(currentTurnHero);
                 break;
             case FightTurn.HeroTurn:
 
                 currentTurnHero = ch as Hero;
+                currentTurnEnemy = null;
+
                 arenaUiManage.SetHeroTurnPanelState(true);
                 
                 arenaUiManage.SetCurrentCharaUi(currentTurnHero);
@@ -110,6 +116,11 @@ public class ArenaManager : MonoBehaviour
 
     public void NextSequence()
     {
+        if (currentTurnHero != null && !arenaSequenceController.ArenaCharacterController.CheckAllEnemyAlive())
+        {
+            BackToRoam();
+        }
+
         currentSequenceIndex++;
 
         if (currentSequenceIndex >= arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence().Count)
@@ -118,7 +129,7 @@ public class ArenaManager : MonoBehaviour
             currentSequenceIndex = 0;
             currentRound++;
 
-            if (currentRound >= 3)
+            if (currentRound >= 4)
                 BackToRoam();
         }
 

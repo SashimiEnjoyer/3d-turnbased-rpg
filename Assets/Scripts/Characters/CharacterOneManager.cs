@@ -1,19 +1,26 @@
+using Animancer;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterOneManager : Hero
 {
-    public override void AttackPattern1(Enemy target, UnityAction onDoneAttack)
+    public override void AttackPattern1(Enemy target, UnityAction done)
     {
-        StartCoroutine(DoAttack(target, onDoneAttack));
+        targetedEnemy = target;
+        onDoneAttack = done;
+        animComponent.Play(attackPatternConfig[0].animation);
     }
 
-    private IEnumerator DoAttack(Enemy target, UnityAction onDoneAttack)
+    public override void AttackedByEnemy()
     {
-        Debug.Log("Do Attack 1 to " + target.name);
-        yield return new WaitForSeconds(2f);
-        Debug.Log("Finish Attack 1");
-        onDoneAttack?.Invoke();
+        Debug.Log("Attacked by Enemy!");
     }
+
+    private async void PlayAtk1Animation() 
+    {
+        await animComponent.Play(attackPatternConfig[0].animation);
+        animComponent.Stop();
+    }
+
 }

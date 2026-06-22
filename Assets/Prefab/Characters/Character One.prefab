@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 965435874529325335}
   - component: {fileID: 2772101966281837293}
   - component: {fileID: 3474035873490344689}
+  - component: {fileID: 4246465981599398314}
   m_Layer: 8
   m_Name: Character One
   m_TagString: Player
@@ -115,7 +116,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 40db3173a05ae3242b1c182a09b0a183, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
@@ -137,15 +138,84 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterOneManager
   characterData: {fileID: 11400000, guid: 3278f24c6ae64694bac5b8231821aab8, type: 2}
+  animComponent: {fileID: 4246465981599398314}
   attackPatternConfig:
   - attackType: 0
     isMultiTarget: 0
+    animation:
+      _FadeDuration: 0.25
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 0.35701275
+        - 1
+        _Callbacks:
+        - rid: 7394243691370774757
+        - rid: 7394243693979369614
+        _Names: []
+      _Clip: {fileID: -203655887218126122, guid: 6f37302ed460b8b438a0990de2108bd4, type: 3}
+      _NormalizedStartTime: NaN
   - attackType: 1
     isMultiTarget: 0
+    animation:
+      _FadeDuration: 0.25
+      _Speed: 1
+      _Events:
+        _NormalizedTimes: []
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 0}
+      _NormalizedStartTime: NaN
   - attackType: 2
     isMultiTarget: 0
+    animation:
+      _FadeDuration: 0.25
+      _Speed: 1
+      _Events:
+        _NormalizedTimes: []
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 0}
+      _NormalizedStartTime: NaN
   - attackType: 0
     isMultiTarget: 0
+    animation:
+      _FadeDuration: 0.25
+      _Speed: 1
+      _Events:
+        _NormalizedTimes: []
+        _Callbacks: []
+        _Names: []
+      _Clip: {fileID: 0}
+      _NormalizedStartTime: NaN
+  references:
+    version: 2
+    RefIds:
+    - rid: 7394243691370774757
+      type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
+      data:
+        m_PersistentCalls:
+          m_Calls: []
+    - rid: 7394243693979369614
+      type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
+      data:
+        m_PersistentCalls:
+          m_Calls: []
+--- !u!114 &4246465981599398314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416062841054088562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad50f81b1d25c441943c37a89ba23f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Kybernetik.Animancer::Animancer.AnimancerComponent
+  _Animator: {fileID: 2772101966281837293}
+  _Transitions: {fileID: 0}
+  _ActionOnDisable: 0
 --- !u!1 &496878478689474888
 GameObject:
   m_ObjectHideFlags: 0

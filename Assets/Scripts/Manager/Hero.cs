@@ -1,3 +1,4 @@
+using Animancer;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,7 @@ public class AttackPatternConfig
 
     public AttackType attackType;
     public bool isMultiTarget;
+    public ClipTransition animation;
 
     public bool IsBuffCamera()
     {
@@ -21,11 +23,22 @@ public class AttackPatternConfig
 
 public class Hero : Character
 {
-    [SerializeField] private AttackPatternConfig[] attackPatternConfig;
+    [SerializeField] protected AttackPatternConfig[] attackPatternConfig;
+
+    protected Enemy targetedEnemy;
+    protected UnityAction onDoneAttack;
 
     public override void InitCharacter(SOCharacter data)
     {
         base.InitCharacter(data);
+        OptionalWarning.EndEventInterrupt.Disable();
+        attackPatternConfig[0].animation.Events.AddCallback(0, Attack1Callback);
+        attackPatternConfig[0].animation.Events.OnEnd = ()=>
+        {
+            Debug.Log("Animation Ended");
+            onDoneAttack?.Invoke();
+            animComponent.Stop();
+        };
     }
 
     public AttackPatternConfig GetAttackConfig(int idx)
@@ -33,17 +46,14 @@ public class Hero : Character
         return attackPatternConfig[idx];
     }
 
+    public virtual void AttackPattern1(Enemy target, UnityAction onDone) { }
+    public virtual void AttackedByEnemy() { }
 
-    public virtual void AttackPattern1(Enemy target, UnityAction onDoneAttack)
+    private void Attack1Callback()
     {
-        Debug.Log("attack 1 parent");
+        Debug.Log("Call back attack " + targetedEnemy.name);
+        targetedEnemy.AttackedByPlayer();
     }
-
-    public virtual void AttackPattern2()
-    {
-        Debug.Log("attack 2");
-    }
-
 
     public virtual void AttackPattern3()
     {

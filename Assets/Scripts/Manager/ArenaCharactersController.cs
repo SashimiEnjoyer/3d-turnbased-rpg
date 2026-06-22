@@ -61,8 +61,20 @@ public class ArenaCharactersController : MonoBehaviour
     {
         sortedCharaSequences.Clear();
 
-        return sortedCharaSequences = allCharaInArena.Where(u => u.GetCharacter().CheckIsAlive())
+        return sortedCharaSequences = allCharaInArena
             .OrderByDescending(u => u.GetCharacter().GetSpeed()).ToList();
+    }
+
+    public bool CheckAllHeroAlive()
+    {
+        int count = allCharaInArena.Count(x => x.GetCharacter() as Hero && x.GetCharacter().CheckIsAlive());
+        return count > 0;
+    }
+
+    public bool CheckAllEnemyAlive()
+    {
+        int count = allCharaInArena.Count(x => x.GetCharacter() as Enemy && x.GetCharacter().CheckIsAlive());
+        return count > 0;
     }
 
     public ArenaCharacterContainer GetSelectedEnemy()
@@ -110,8 +122,16 @@ public class ArenaCharactersController : MonoBehaviour
         if (!isHeroTurn)
             return;
 
-        if(Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            if (UnityEngine.EventSystems.EventSystem.current != null &&
+                UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             DetectObjectWithRaycast();
+        }
     }
 
     void DetectObjectWithRaycast()
@@ -120,7 +140,8 @@ public class ArenaCharactersController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, characterMask))
         {
-            selectedEnemy = hit.transform.GetComponentInParent<Character>() as Enemy;
+            selectedEnemy = hit.transform.GetComponentInParent<Enemy>();
+            Debug.Log(selectedEnemy.name);
             targetIndicatorUi.MoveIndicatorToTarget(hit.transform);
         }
     }

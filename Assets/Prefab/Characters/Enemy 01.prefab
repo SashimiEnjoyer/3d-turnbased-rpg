@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2347240221416230750}
   - component: {fileID: 8073704986857315716}
   - component: {fileID: 8813905217323910387}
+  - component: {fileID: 7365120918526403278}
   m_Layer: 0
   m_Name: Enemy 01
   m_TagString: Untagged
@@ -43,7 +44,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8742392641935309734}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 903df639393aeea4689d66efa03c6bcf, type: 3}
   m_Controller: {fileID: 9100000, guid: ede977c502ace8947b30c13e494a6f0f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -69,6 +70,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   characterData: {fileID: 11400000, guid: ca7cdcdb0363e2640a8ad2ab81d79ecb, type: 2}
+  animComponent: {fileID: 7365120918526403278}
+  attackConfigs:
+  - attackType: 0
+    isMultiTarget: 0
+    animation:
+      _FadeDuration: 0.25
+      _Speed: 1
+      _Events:
+        _NormalizedTimes:
+        - 0.44
+        - NaN
+        _Callbacks:
+        - rid: 7394243693979369584
+        _Names: []
+      _Clip: {fileID: -203655887218126122, guid: 20afaec274ff56f4b9c2e125b5f9005d, type: 3}
+      _NormalizedStartTime: NaN
+  references:
+    version: 2
+    RefIds:
+    - rid: 7394243693979369584
+      type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
+      data:
+        m_PersistentCalls:
+          m_Calls: []
+--- !u!114 &7365120918526403278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742392641935309734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad50f81b1d25c441943c37a89ba23f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Kybernetik.Animancer::Animancer.AnimancerComponent
+  _Animator: {fileID: 8073704986857315716}
+  _Transitions: {fileID: 0}
+  _ActionOnDisable: 0
 --- !u!1001 &4222592851708276174
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -23,23 +24,32 @@ public class ArenaSequenceController : MonoBehaviour
         currentCharaSequence.GetCharacterContainer().SetupCurrentContainer();
         currentCharaSequence.GetCharacterContainer().SetActiveBaseCam();
         currentCharacter = currentCharaSequence.GetCharacter();
+        onDoneSequence = onDone;
 
         if (currentCharacter.GetCharaDetail().isFriend)
         {
-
             currentHero = currentCharacter as Hero;
+            currentEnemy = null;
         }
         else
         {
             currentEnemy = currentCharacter as Enemy;
-        }
+            currentHero = null;
 
-        onDoneSequence = onDone;
+            EnemyAtkSequence();
+        }
     }
 
     public void ExecuteEnemyAttack(Hero target)
     {
         currentEnemy.DoAttack(target, onDoneSequence);
+    }
+
+    private void EnemyAtkSequence()
+    {
+        Hero h = arenaCharacterController.GetDefaultHero();
+        ExecuteEnemyAttack(h);
+        //onDoneSequence?.Invoke();
     }
 
     public void ExecuteHeroAttack(int idx)
