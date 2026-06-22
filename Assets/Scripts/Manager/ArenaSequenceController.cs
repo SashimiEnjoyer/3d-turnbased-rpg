@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 public class ArenaSequenceController : MonoBehaviour
 {
+    [SerializeField] private ArenaCharactersController arenaCharacterController;
+    public ArenaCharactersController ArenaCharacterController => arenaCharacterController;
+
     private CharacterSequence currentCharaSequence;
     private Character currentCharacter;
     private Hero currentHero;
@@ -12,22 +15,34 @@ public class ArenaSequenceController : MonoBehaviour
     private int atkPatternIdx = 0;
 
     private UnityAction onDoneSequence;
-    
-    public void AssignCharacterForSequence(CharacterSequence chr, UnityAction onDone = null)
-    {
-        currentCharaSequence = chr;
 
+    public void InitCurrentTurnCharacter(CharacterSequence chr, UnityAction onDone = null)
+    {
+        currentCharaSequence?.GetCharacterContainer().ResetAllCam();
+        currentCharaSequence = chr;
+        currentCharaSequence.GetCharacterContainer().SetupCurrentContainer();
+        currentCharaSequence.GetCharacterContainer().SetActiveBaseCam();
         currentCharacter = currentCharaSequence.GetCharacter();
 
         if (currentCharacter.GetCharaDetail().isFriend)
+        {
+
             currentHero = currentCharacter as Hero;
+        }
         else
+        {
             currentEnemy = currentCharacter as Enemy;
+        }
 
         onDoneSequence = onDone;
     }
 
-    public void ExecuteHeroAttack(int idx, Enemy target)
+    public void ExecuteEnemyAttack(Hero target)
+    {
+        currentEnemy.DoAttack(target, onDoneSequence);
+    }
+
+    public void ExecuteHeroAttack(int idx)
     {
         if (atkPatternIdx != idx)
         {
@@ -46,13 +61,7 @@ public class ArenaSequenceController : MonoBehaviour
         }
         else
         {
-            currentHero.AttackPattern1(target, onDoneSequence);
+            currentHero.AttackPattern1(arenaCharacterController.GetManualSelectedEnemy(), onDoneSequence);
         }
     }
-
-    public void ExecuteEnemyAttack(Hero target)
-    {
-        currentEnemy.DoAttack(target, onDoneSequence);
-    }
-
 }

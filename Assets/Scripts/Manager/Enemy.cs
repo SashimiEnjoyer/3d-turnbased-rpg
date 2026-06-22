@@ -11,7 +11,7 @@ public class Enemy : Character
 
     public void DoAttack(Hero target, UnityAction onDoneAttack)
     {
-        Debug.Log(gameObject.name + "is Attacking " + target.name);
+        Debug.Log(gameObject.name + " is Attacking " + target.name);
         StartCoroutine(AttackSequence(onDoneAttack));
     }
 
@@ -20,6 +20,6 @@ public class Enemy : Character
         Debug.Log("Enemy Attack 1");
         yield return new WaitForSeconds(2f);
         Debug.Log("Finish Enemy Attack 1");
-        onDoneAttack();
+        onDoneAttack?.Invoke();
     }
 }

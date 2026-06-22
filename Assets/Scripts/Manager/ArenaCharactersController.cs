@@ -34,6 +34,8 @@ public class ArenaCharactersController : MonoBehaviour
     private List<CharacterSequence> sortedCharaSequences = new();
 
     private CharacterSequence currentHeroTurn;
+    private CharacterSequence currentEnemyTurn;
+
     private bool isHeroTurn = false;
     private Enemy selectedEnemy;
 
@@ -74,6 +76,13 @@ public class ArenaCharactersController : MonoBehaviour
             return currentHeroTurn = allCharaInArena.Find(u => u.GetCharacter() as Hero == myHero);
         else
             return currentHeroTurn;
+    }
+    public CharacterSequence GetCurrentTurnEnemy(Enemy enemy)
+    {
+        if (currentEnemyTurn == null || currentEnemyTurn.GetCharacter() as Enemy == enemy)
+            return currentEnemyTurn = allCharaInArena.Find(u => u.GetCharacter() as Enemy == enemy);
+        else
+            return currentEnemyTurn;
     }
 
     public ArenaCharacterContainer GetHeroForEnemy(Hero myHero)
