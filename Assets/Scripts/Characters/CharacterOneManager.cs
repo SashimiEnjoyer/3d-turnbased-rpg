@@ -5,22 +5,33 @@ using UnityEngine.Events;
 
 public class CharacterOneManager : Hero
 {
-    public override void AttackPattern1(Enemy target, UnityAction done)
+    Character tar;
+    public override void AttackPattern1(Character target, UnityAction done)
     {
-        targetedEnemy = target;
+        targetedEnemy = target as Enemy;
         onDoneAttack = done;
         animComponent.Play(attackPatternConfig[0].animation);
+    }
+
+    public override void AttackPattern2(Character target, UnityAction onDone)
+    {
+        tar = target;
+        onDoneAttack = onDone;
+        animComponent.Play(attackPatternConfig[1].animation);
+    }
+
+    protected override void Attack1Callback()
+    {
+        targetedEnemy.AttackedByPlayer();
+    }
+
+    protected override void Attack2Callback()
+    {
+        Debug.Log("Healing!!! --> " + tar.name);
     }
 
     public override void AttackedByEnemy()
     {
         Debug.Log("Attacked by Enemy!");
     }
-
-    private async void PlayAtk1Animation() 
-    {
-        await animComponent.Play(attackPatternConfig[0].animation);
-        animComponent.Stop();
-    }
-
 }

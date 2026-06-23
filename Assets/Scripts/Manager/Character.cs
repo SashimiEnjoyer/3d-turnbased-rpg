@@ -6,6 +6,7 @@ public class Character : MonoBehaviour
 {
     [SerializeField] protected SOCharacter characterData;
     [SerializeField] protected AnimancerComponent animComponent;
+    [SerializeField] protected Transform targetIndicator;
 
     protected float maxHp;
     protected float currentHp;
@@ -20,6 +21,7 @@ public class Character : MonoBehaviour
     public int GetSpeed() { return speed; }
     public bool CheckIsAlive() { return isAlive; }
     public SOCharacter GetCharaDetail() { return characterData; }
+    public Transform GetTargetIndicator() { return targetIndicator; }
 
     private void Awake()
     {
@@ -32,6 +34,7 @@ public class Character : MonoBehaviour
         maxHp = data.health;
         finalDmg = data.baseDamage;
         speed = data.baseSpeed;
-
     }
+
+    public bool CheckIsFriend() => characterData.isFriend;
 }

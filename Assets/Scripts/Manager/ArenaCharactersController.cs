@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [System.Serializable]
@@ -23,7 +24,8 @@ public class CharacterSequence
 public class ArenaCharactersController : MonoBehaviour
 {
     [SerializeField] private TargetIndicatorUi targetIndicatorUi;
-    [SerializeField] private LayerMask characterMask;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask heroLayer;
     [SerializeField] private ArenaCharacterContainer[] charactersPoints;
     [SerializeField] private ArenaCharacterContainer[] enemiesPoints;
 
@@ -37,7 +39,16 @@ public class ArenaCharactersController : MonoBehaviour
     private CharacterSequence currentEnemyTurn;
 
     private bool isHeroTurn = false;
-    private Enemy selectedEnemy;
+    private bool isTargetingEnemy = false;
+
+    private Character selectedTarget;
+
+    public UnityAction OnManuallySelectTarget;
+
+    public void AssignOnSelectTarget(UnityAction action)
+    {
+        OnManuallySelectTarget += action;
+    }
 
     public void AddAllCharaInArena(Character chara)
     {
@@ -107,15 +118,29 @@ public class ArenaCharactersController : MonoBehaviour
         return sortedCharaSequences.Find(u => u.GetCharacter() is Hero).GetCharacter() as Hero;
     }
 
-    public Enemy GetManualSelectedEnemy()
+    public Character GetManualSelectedTarget()
     {
-        if (selectedEnemy == null)
-            return selectedEnemy = sortedCharaSequences.FirstOrDefault(u => u.GetCharacter() is Enemy).GetCharacter() as Enemy;
-        else
-            return selectedEnemy;
+        if(selectedTarget == null)
+        {
+            if (isTargetingEnemy)
+            {
+                selectedTarget = sortedCharaSequences.Find(u => !u.GetCharacter().CheckIsFriend() && u.GetCharacter().CheckIsAlive()).GetCharacter();
+            }else
+                selectedTarget = sortedCharaSequences.Find(u => u.GetCharacter().CheckIsFriend() && u.GetCharacter().CheckIsAlive()).GetCharacter();
+            
+            targetIndicatorUi.MoveIndicatorToTarget(selectedTarget.GetTargetIndicator());
+        }
+
+        return selectedTarget;
     }
 
     public void CheckCurrentTurnStatus(bool isHero) => isHeroTurn = isHero;
+    public void SetTargetTypeEnemy(bool val) 
+    {
+        selectedTarget = null;
+        isTargetingEnemy = val;
+        GetManualSelectedTarget();
+    }
 
     private void Update()
     {
@@ -138,11 +163,13 @@ public class ArenaCharactersController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.value);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, characterMask))
+        LayerMask currentLayer = isTargetingEnemy? enemyLayer : heroLayer;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, currentLayer))
         {
-            selectedEnemy = hit.transform.GetComponentInParent<Enemy>();
-            Debug.Log(selectedEnemy.name);
-            targetIndicatorUi.MoveIndicatorToTarget(hit.transform);
+            selectedTarget = hit.transform.GetComponentInParent<Character>();
+            targetIndicatorUi.MoveIndicatorToTarget(selectedTarget.GetTargetIndicator());
+            OnManuallySelectTarget.Invoke();
         }
     }
 }

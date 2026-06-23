@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterOneManager
   characterData: {fileID: 11400000, guid: 3278f24c6ae64694bac5b8231821aab8, type: 2}
   animComponent: {fileID: 4246465981599398314}
+  targetIndicator: {fileID: 83275189929053892}
   attackPatternConfig:
   - attackType: 0
     isMultiTarget: 0
@@ -148,10 +149,9 @@ MonoBehaviour:
       _Events:
         _NormalizedTimes:
         - 0.35701275
-        - 1
+        - NaN
         _Callbacks:
         - rid: 7394243691370774757
-        - rid: 7394243693979369614
         _Names: []
       _Clip: {fileID: -203655887218126122, guid: 6f37302ed460b8b438a0990de2108bd4, type: 3}
       _NormalizedStartTime: NaN
@@ -161,10 +161,13 @@ MonoBehaviour:
       _FadeDuration: 0.25
       _Speed: 1
       _Events:
-        _NormalizedTimes: []
-        _Callbacks: []
+        _NormalizedTimes:
+        - 0.26150033
+        - NaN
+        _Callbacks:
+        - rid: 7394243706300924011
         _Names: []
-      _Clip: {fileID: 0}
+      _Clip: {fileID: -203655887218126122, guid: b95229064f27e754a9f1ab637a5e9fdb, type: 3}
       _NormalizedStartTime: NaN
   - attackType: 2
     isMultiTarget: 0
@@ -196,7 +199,7 @@ MonoBehaviour:
       data:
         m_PersistentCalls:
           m_Calls: []
-    - rid: 7394243693979369614
+    - rid: 7394243706300924011
       type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
       data:
         m_PersistentCalls:
@@ -288,7 +291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3043782119937716507}
   - component: {fileID: 6566443368287338805}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Geometry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1966,7 +1969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4553444097408266716}
   - component: {fileID: 4077695517424157167}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Armature_Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

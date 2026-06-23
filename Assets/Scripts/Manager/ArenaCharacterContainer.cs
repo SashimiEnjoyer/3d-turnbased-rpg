@@ -8,6 +8,8 @@ public class ArenaCharacterContainer : MonoBehaviour
     public CinemachineCamera BaseCam => baseCharacterCam;
     public CinemachineCamera BuffTeamCam => buffTeamCam;
 
+    //private CinemachineCamera currentCamera;
+
     private int baseCamPriority = 10;
 
     public void SetupCurrentContainer()
@@ -20,6 +22,11 @@ public class ArenaCharacterContainer : MonoBehaviour
     {
         baseCharacterCam.Priority = baseCamPriority + 10;
         buffTeamCam.Priority = baseCamPriority;
+    }
+
+    public void SetBaseCamTarget(Transform target)
+    {
+        baseCharacterCam.Target.TrackingTarget = target;
     }
 
     public void SetActiveBuffCam()

@@ -199,9 +199,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArenaCharactersController
   targetIndicatorUi: {fileID: 104353764}
-  characterMask:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  heroLayer:
+    serializedVersion: 2
+    m_Bits: 64
   charactersPoints:
   - {fileID: 400798571}
   - {fileID: 1457915476}
@@ -236,7 +239,7 @@ GameObject:
   - component: {fileID: 104353762}
   - component: {fileID: 104353764}
   m_Layer: 5
-  m_Name: Target
+  m_Name: Indicator Target_Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,12 +252,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 104353760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1243260586}
+  m_Father: {fileID: 1863258195}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -902,7 +905,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -928,8 +931,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.003168166, y: 0.9955357, z: -0.03615844, w: 0.08712856}
-  m_LocalPosition: {x: -11.399152, y: 1.7253302, z: 4.6554847}
+  m_LocalRotation: {x: -0.095845714, y: 0, z: 0, w: 0.99539626}
+  m_LocalPosition: {x: -11.99, y: 1.45, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1158,6 +1161,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44461206784655687, guid: 0461c8d50d877194ca2fb0ed4ab2345c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2264832976675489839, guid: 0461c8d50d877194ca2fb0ed4ab2345c, type: 3}
       propertyPath: m_Name
       value: Arena Hero Container 1
@@ -3129,7 +3136,6 @@ RectTransform:
   m_Children:
   - {fileID: 1863258195}
   - {fileID: 2083452344}
-  - {fileID: 104353761}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4491,6 +4497,7 @@ RectTransform:
   - {fileID: 1140301325}
   - {fileID: 928575262}
   - {fileID: 1036721217}
+  - {fileID: 104353761}
   m_Father: {fileID: 1243260586}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
