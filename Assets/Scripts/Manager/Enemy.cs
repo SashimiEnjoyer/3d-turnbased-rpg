@@ -29,14 +29,18 @@ public class Enemy : Character
         animComponent.Play(attackConfigs[0].animation);
     }
 
-    public void AttackedByPlayer()
+    public void AttackedByPlayer(float rawValue)
     {
-        isAlive = false;
-        gameObject.SetActive(false);
+        currentHp -= rawValue;
+        if (currentHp < 0)
+        {
+            isAlive = false;
+            gameObject.SetActive(false);
+        }
     }
 
     private void Attack1Callback()
     {
-        targetedHero.AttackedByEnemy();
+        targetedHero.AttackedByEnemy(2);
     }
 }

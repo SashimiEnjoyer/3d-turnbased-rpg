@@ -36,6 +36,7 @@ public class ArenaSequenceController : MonoBehaviour
         {
             currentHero = currentCharacter as Hero;
             currentEnemy = null;
+            ExecuteHeroAttack(0);
         }
         else
         {

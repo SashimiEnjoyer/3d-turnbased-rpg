@@ -8,6 +8,8 @@ public class ArenaUiManage : MonoBehaviour
     [SerializeField] private GameObject charaSeqUiPrefab;
     [SerializeField] private Transform seqUiParent;
     [SerializeField] private ArenaHeroTurnPanel arenaHeroTurnPanel;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     [SerializeField] private List<CharaSequenceUiPanel> seqUi = new();
 
@@ -38,6 +40,9 @@ public class ArenaUiManage : MonoBehaviour
     {
         arenaHeroTurnPanel.InitSkipButtons(flee, skip);
     }
+
+    public void ActiveWinPanel() => winPanel.SetActive(true);
+    public void ActiveLosePanel() => losePanel.SetActive(true);
 
     public void ArrangeSequenceUi(List<Character> charas)
     {

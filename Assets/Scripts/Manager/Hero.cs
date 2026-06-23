@@ -58,7 +58,7 @@ public class Hero : Character
 
     public virtual void AttackPattern1(Character target, UnityAction onDone) { }
     public virtual void AttackPattern2(Character target, UnityAction onDone) { }
-    public virtual void AttackedByEnemy() { }
+    public virtual void AttackedByEnemy(float rawValue) { }
 
     protected virtual void Attack1Callback() { }
     protected virtual void Attack2Callback() { }

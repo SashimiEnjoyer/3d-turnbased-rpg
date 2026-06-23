@@ -106,6 +106,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
+        public CharacterController Controller => _controller;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 

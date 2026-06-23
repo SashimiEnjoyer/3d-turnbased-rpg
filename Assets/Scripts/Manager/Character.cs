@@ -23,15 +23,11 @@ public class Character : MonoBehaviour
     public SOCharacter GetCharaDetail() { return characterData; }
     public Transform GetTargetIndicator() { return targetIndicator; }
 
-    private void Awake()
-    {
-        maxHp = characterData.health;
-        finalDmg = characterData.baseDamage;
-    }
 
     public virtual void InitCharacter(SOCharacter data) 
     {
         maxHp = data.health;
+        currentHp = maxHp;
         finalDmg = data.baseDamage;
         speed = data.baseSpeed;
     }

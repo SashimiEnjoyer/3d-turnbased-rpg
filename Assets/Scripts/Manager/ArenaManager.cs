@@ -68,7 +68,7 @@ public class ArenaManager : MonoBehaviour
             () => arenaSequenceController.ExecuteHeroAttack(3)
             ); 
 
-        arenaUiManage.InitSkipButtons(BackToRoam, NextSequence);   
+        arenaUiManage.InitSkipButtons(arenaUiManage.ActiveLosePanel, NextSequence);   
     }
 
     private void BuildSequence()
@@ -118,7 +118,8 @@ public class ArenaManager : MonoBehaviour
     {
         if (currentTurnHero != null && !arenaSequenceController.ArenaCharacterController.CheckAllEnemyAlive())
         {
-            BackToRoam();
+            arenaUiManage.ActiveWinPanel();
+            return;
         }
 
         currentSequenceIndex++;
@@ -130,14 +131,31 @@ public class ArenaManager : MonoBehaviour
             currentRound++;
 
             if (currentRound >= 4)
-                BackToRoam();
+            {
+                arenaUiManage.ActiveLosePanel();
+                return;
+            }
         }
 
         CheckThisTurn();
     }
 
-    public void BackToRoam()
+    public void BackToRoamAfterWinning()
     {
+        GameManager.instance.playManager.FlagWinningBattle(true);
+        GameManager.instance.playManager.UpdateEnemyDefeatIndex(0);
         SceneManager.LoadSceneAsync("Roam");
+
+    }
+
+    public void BackToRoamAfterLosing()
+    {
+        GameManager.instance.playManager.UpdateEnemyDefeatIndex(-1);
+        SceneManager.LoadSceneAsync("Roam");
+    }
+
+    public void RestartFight()
+    {
+        SceneManager.LoadSceneAsync("Fight Arena");
     }
 }

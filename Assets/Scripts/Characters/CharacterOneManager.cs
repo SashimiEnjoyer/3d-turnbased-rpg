@@ -22,7 +22,7 @@ public class CharacterOneManager : Hero
 
     protected override void Attack1Callback()
     {
-        targetedEnemy.AttackedByPlayer();
+        targetedEnemy.AttackedByPlayer(2);
     }
 
     protected override void Attack2Callback()
@@ -30,8 +30,13 @@ public class CharacterOneManager : Hero
         Debug.Log("Healing!!! --> " + tar.name);
     }
 
-    public override void AttackedByEnemy()
+    public override void AttackedByEnemy(float rawValue)
     {
-        Debug.Log("Attacked by Enemy!");
+        currentHp -= rawValue;
+        if (currentHp < 0)
+        {
+            isAlive = false;
+            gameObject.SetActive(false);
+        }
     }
 }
