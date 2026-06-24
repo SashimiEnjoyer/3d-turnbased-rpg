@@ -42,6 +42,7 @@ public class ArenaManager : MonoBehaviour
             enemy.gameObject.name = $"Enemy {temp}";
             enemy.InitCharacter(item);
             enemies.Add(enemy);
+            arenaUiManage.AssignEnemyDetailUi(temp, enemy);
             arenaUiManage.InitCharaSeqUi();
             arenaSequenceController.ArenaCharacterController.AddAllCharaInArena(enemy);
         }
@@ -53,6 +54,7 @@ public class ArenaManager : MonoBehaviour
             Hero hero = Instantiate(item.characterPrefab).GetComponent<Hero>();
             hero.InitCharacter(item);
             heroes.Add(hero);
+            arenaUiManage.AssignHeroDetailUi(temp, hero);
             arenaUiManage.InitCharaSeqUi();
             arenaSequenceController.ArenaCharacterController.AddAllCharaInArena(hero);
 
@@ -105,7 +107,6 @@ public class ArenaManager : MonoBehaviour
 
                 arenaUiManage.SetHeroTurnPanelState(true);
                 
-                arenaUiManage.SetCurrentCharaUi(currentTurnHero);
                 arenaSequenceController.InitCurrentTurnCharacter(arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence()[currentSequenceIndex], NextSequence);
                 break;
             default:

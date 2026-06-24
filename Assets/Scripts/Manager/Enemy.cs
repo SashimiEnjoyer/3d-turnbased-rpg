@@ -30,7 +30,11 @@ public class Enemy : Character
 
     public void AttackedByPlayer(int rawValue)
     {
+        hitFx.Emit(1);
         CurrentHp -= rawValue;
+
+        OnUpdateUi?.Invoke();
+
         if (CurrentHp < 0)
         {
             isAlive = false;

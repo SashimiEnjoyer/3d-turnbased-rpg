@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected SOCharacter characterData;
     [SerializeField] protected AnimancerComponent animComponent;
     [SerializeField] protected Transform targetIndicator;
+    [SerializeField] protected ParticleSystem hitFx;
 
     protected int maxHp;
     private int currentHp;
@@ -26,7 +27,6 @@ public class Character : MonoBehaviour
             return currentHp; 
         }
     }
-    public int GetMaxHp() { return maxHp; }
 
     protected int maxMana;
     protected int currentMana;
@@ -51,14 +51,15 @@ public class Character : MonoBehaviour
     protected int speed;
     protected bool isAlive = true;
 
+    public int GetMaxHp() { return maxHp; }
     public int GetMaxMana() { return maxMana; }
-
     public int GetFinalDmg() { return finalDmg; }
     public int GetSpeed() { return speed; }
     public bool CheckIsAlive() { return isAlive; }
     public SOCharacter GetCharaDetail() { return characterData; }
     public Transform GetTargetIndicator() { return targetIndicator; }
 
+    public UnityAction OnUpdateUi;
 
     public virtual void InitCharacter(SOCharacter data) 
     {

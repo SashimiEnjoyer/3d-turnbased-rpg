@@ -22,6 +22,7 @@ public class CharacterOneManager : Hero
 
     protected override void Attack1Callback()
     {
+        CurrentMana += 1;
         targetedEnemy.AttackedByPlayer(2);
     }
 
@@ -29,12 +30,18 @@ public class CharacterOneManager : Hero
     {
         CurrentHp += 1;
         CurrentMana -= 1;
+
+        OnUpdateUi?.Invoke();
     }
 
     public override void AttackedByEnemy(int rawValue)
     {
+        hitFx.Emit(1);
         CurrentHp -= rawValue;
-        if (CurrentHp < 0)
+
+        OnUpdateUi?.Invoke();
+
+        if (CurrentHp <= 0)
         {
             isAlive = false;
             gameObject.SetActive(false);

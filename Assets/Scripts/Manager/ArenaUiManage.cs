@@ -10,6 +10,8 @@ public class ArenaUiManage : MonoBehaviour
     [SerializeField] private ArenaHeroTurnPanel arenaHeroTurnPanel;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
+    [SerializeField] private CharacterDetailPanel[] heroDetailPanels;
+    [SerializeField] private CharacterDetailPanel[] enemyDetailPanels;
 
     [SerializeField] private List<CharaSequenceUiPanel> seqUi = new();
 
@@ -26,9 +28,14 @@ public class ArenaUiManage : MonoBehaviour
         arenaHeroTurnPanel.gameObject.SetActive(isActive);
     }
 
-    public void SetCurrentCharaUi(Character chara)
+    public void AssignHeroDetailUi(int indx, Character chara)
     {
-        arenaHeroTurnPanel.SetCurrentCharaUi(chara);
+        heroDetailPanels[indx].SetCurrentCharaUi(chara);
+    }
+
+    public void AssignEnemyDetailUi(int indx, Character chara)
+    {
+        enemyDetailPanels[indx].SetCurrentCharaUi(chara);
     }
 
     public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
