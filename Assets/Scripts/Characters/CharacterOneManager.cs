@@ -27,14 +27,14 @@ public class CharacterOneManager : Hero
     protected override void Attack1Callback()
     {
         CurrentMana += 1;
-        targetedEnemy.AttackedByPlayer(2, config.attackType);
+        targetedEnemy.AttackedByPlayer(config.value, config.attackType);
         OnUpdateUi?.Invoke();
     }
 
     protected override void Attack2Callback()
     {
         targetedHero.AttackedByEnemy(1, config.attackType);
-        CurrentMana -= 1;
+        CurrentMana -= config.cost;
 
         OnUpdateUi?.Invoke();
     }

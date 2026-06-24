@@ -12,6 +12,7 @@ public enum FightTurn
 
 public class ArenaManager : MonoBehaviour
 {
+    [SerializeField] private int maxTurn;
     [SerializeField] private ArenaUiManage arenaUiManage;
     [SerializeField] private ArenaSequenceController arenaSequenceController;
 
@@ -135,7 +136,7 @@ public class ArenaManager : MonoBehaviour
             currentSequenceIndex = 0;
             currentRound++;
 
-            if (currentRound >= 4)
+            if (currentRound >= maxTurn)
             {
                 arenaUiManage.ActiveLosePanel();
                 return;

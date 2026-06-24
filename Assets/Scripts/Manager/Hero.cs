@@ -14,6 +14,8 @@ public class AttackPatternConfig
 {  
 
     public AttackType attackType;
+    public int value;
+    public int cost;
     public bool isMultiTarget;
     public ClipTransition animation;
 
