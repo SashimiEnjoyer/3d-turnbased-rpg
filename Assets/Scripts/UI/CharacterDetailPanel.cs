@@ -8,6 +8,8 @@ public class CharacterDetailPanel : MonoBehaviour
     [SerializeField] private TMP_Text currentCharaName;
     [SerializeField] private Slider currentCharaHp;
     [SerializeField] private Slider currentCharaMana;
+    [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text manaText;
 
     private Character chara;
 
@@ -27,5 +29,8 @@ public class CharacterDetailPanel : MonoBehaviour
         currentCharaHp.value = chara.CurrentHp;
         currentCharaMana.maxValue = chara.GetMaxMana();
         currentCharaMana.value = chara.CurrentMana;
+
+        hpText.SetText($"{chara.CurrentHp}/{chara.GetMaxHp()}");
+        manaText.SetText($"{chara.CurrentMana}/{chara.GetMaxMana()}");
     }
 }
