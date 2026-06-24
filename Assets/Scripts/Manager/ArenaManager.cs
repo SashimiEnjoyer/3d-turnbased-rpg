@@ -40,7 +40,7 @@ public class ArenaManager : MonoBehaviour
             SOCharacter item = GameManager.instance.GetEnemiesToFight()[temp];
             Enemy enemy = Instantiate(item.characterPrefab).GetComponent<Enemy>();
             enemy.gameObject.name = $"Enemy {temp}";
-            enemy.InitCharacter(item);
+            enemy.InitCharacter(item, NextSequence);
             enemies.Add(enemy);
             arenaUiManage.AssignEnemyDetailUi(temp, enemy);
             arenaUiManage.InitCharaSeqUi();
@@ -52,7 +52,7 @@ public class ArenaManager : MonoBehaviour
             int temp = i;
             SOCharacter item = GameManager.instance.playerDataManager.playerData.ownedCharacters[temp];
             Hero hero = Instantiate(item.characterPrefab).GetComponent<Hero>();
-            hero.InitCharacter(item);
+            hero.InitCharacter(item, NextSequence);
             heroes.Add(hero);
             arenaUiManage.AssignHeroDetailUi(temp, hero);
             arenaUiManage.InitCharaSeqUi();
@@ -64,10 +64,10 @@ public class ArenaManager : MonoBehaviour
         CheckThisTurn();
 
         arenaUiManage.InitActionButtons(
-            ()=> arenaSequenceController.ExecuteHeroAttack(0), 
-            () => arenaSequenceController.ExecuteHeroAttack(1), 
-            () => arenaSequenceController.ExecuteHeroAttack(2), 
-            () => arenaSequenceController.ExecuteHeroAttack(3)
+            ()=> arenaSequenceController.ExecuteHeroAttackSequence(0), 
+            () => arenaSequenceController.ExecuteHeroAttackSequence(1), 
+            () => arenaSequenceController.ExecuteHeroAttackSequence(2), 
+            () => arenaSequenceController.ExecuteHeroAttackSequence(3)
             ); 
 
         arenaUiManage.InitSkipButtons(arenaUiManage.ActiveLosePanel, NextSequence);   
@@ -120,6 +120,10 @@ public class ArenaManager : MonoBehaviour
         if (currentTurnHero != null && !arenaSequenceController.ArenaCharacterController.CheckAllEnemyAlive())
         {
             arenaUiManage.ActiveWinPanel();
+            return;
+        }else if (currentTurnEnemy != null && !arenaSequenceController.ArenaCharacterController.CheckAllHeroAlive())
+        {
+            arenaUiManage.ActiveLosePanel();
             return;
         }
 

@@ -8,9 +8,11 @@ public class Enemy : Character
     private UnityAction onDoneAttack;
     protected Hero targetedHero;
 
-    public override void InitCharacter(SOCharacter data)
+    public override void InitCharacter(SOCharacter data, UnityAction onDone)
     {
-        base.InitCharacter(data);
+        base.InitCharacter(data, onDone);
+
+        onDoneAttack += onDone;
 
         attackConfigs[0].animation.Events.AddCallback(0, Attack1Callback);
         attackConfigs[0].animation.Events.OnEnd = () =>
@@ -21,29 +23,34 @@ public class Enemy : Character
         };
     }
 
-    public void DoAttack(Hero target, UnityAction onDone)
+    public void DoAttack(Hero target)
     {
         targetedHero = target;
-        onDoneAttack = onDone;
         animComponent.Play(attackConfigs[0].animation);
     }
 
-    public void AttackedByPlayer(int rawValue)
+    public void AttackedByPlayer(int recievedValue, AttackType type)
     {
-        hitFx.Emit(1);
-        CurrentHp -= rawValue;
-
-        OnUpdateUi?.Invoke();
-
-        if (CurrentHp < 0)
+        switch (type)
         {
-            isAlive = false;
-            gameObject.SetActive(false);
+            default:
+                hitFx.Emit(1);
+                CurrentHp -= recievedValue;
+
+                OnUpdateUi?.Invoke();
+
+                if (CurrentHp < 0)
+                {
+                    isAlive = false;
+                    gameObject.SetActive(false);
+                }
+                break;
         }
+        
     }
 
     private void Attack1Callback()
     {
-        targetedHero.AttackedByEnemy(2);
+        targetedHero.AttackedByEnemy(2, attackConfigs[0].attackType);
     }
 }

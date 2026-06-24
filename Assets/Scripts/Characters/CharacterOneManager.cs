@@ -1,50 +1,66 @@
 using Animancer;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterOneManager : Hero
 {
-    Character tar;
-    public override void AttackPattern1(Character target, UnityAction done)
+    AttackPatternConfig config;
+    public override void AttackPattern(int id, Character target)
     {
-        targetedEnemy = target as Enemy;
-        onDoneAttack = done;
-        animComponent.Play(attackPatternConfig[0].animation);
-    }
+        config = attackPatternConfig[id];
 
-    public override void AttackPattern2(Character target, UnityAction onDone)
-    {
-        tar = target;
-        onDoneAttack = onDone;
-        animComponent.Play(attackPatternConfig[1].animation);
+        if (config.IsBuffTeamate())
+        {
+            targetedHero = target as Hero;
+            targetedEnemy = null;
+        }
+        else
+        {
+            targetedHero = null;
+            targetedEnemy = target as Enemy;
+        }
+        animComponent.Play(config.animation);
     }
 
     protected override void Attack1Callback()
     {
         CurrentMana += 1;
-        targetedEnemy.AttackedByPlayer(2);
+        targetedEnemy.AttackedByPlayer(2, config.attackType);
+        OnUpdateUi?.Invoke();
     }
 
     protected override void Attack2Callback()
     {
-        CurrentHp += 1;
+        targetedHero.AttackedByEnemy(1, config.attackType);
         CurrentMana -= 1;
 
         OnUpdateUi?.Invoke();
     }
 
-    public override void AttackedByEnemy(int rawValue)
+    public override void AttackedByEnemy(int receivedValue, AttackType type)
     {
-        hitFx.Emit(1);
-        CurrentHp -= rawValue;
-
-        OnUpdateUi?.Invoke();
-
-        if (CurrentHp <= 0)
+        switch (type)
         {
-            isAlive = false;
-            gameObject.SetActive(false);
+            case AttackType.Heal:
+                CurrentHp += receivedValue;
+                OnUpdateUi?.Invoke();
+                break;
+
+            default:
+                hitFx.Emit(1);
+                CurrentHp -= receivedValue;
+
+                OnUpdateUi?.Invoke();
+
+                if (CurrentHp <= 0)
+                {
+                    isAlive = false;
+                    gameObject.SetActive(false);
+                }
+                break;
         }
+        
     }
 }

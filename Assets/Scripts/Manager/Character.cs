@@ -61,7 +61,7 @@ public class Character : MonoBehaviour
 
     public UnityAction OnUpdateUi;
 
-    public virtual void InitCharacter(SOCharacter data) 
+    public virtual void InitCharacter(SOCharacter data, UnityAction onDone) 
     {
         maxHp = data.health;
         CurrentHp = maxHp;

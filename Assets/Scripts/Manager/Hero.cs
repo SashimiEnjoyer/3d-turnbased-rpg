@@ -2,20 +2,22 @@ using Animancer;
 using UnityEngine;
 using UnityEngine.Events;
 
+
+[System.Serializable]
+public enum AttackType
+{
+    Damage, Heal, Buff, Debuff, Stun, DOT
+}
+
 [System.Serializable]
 public class AttackPatternConfig
-{
-    [System.Serializable]
-    public enum AttackType
-    {
-        Damage, Heal, Buff, Debuff, Stun, DOT
-    }    
+{  
 
     public AttackType attackType;
     public bool isMultiTarget;
     public ClipTransition animation;
 
-    public bool IsBuffCamera()
+    public bool IsBuffTeamate()
     {
         return attackType == AttackType.Buff || attackType == AttackType.Heal;
     }
@@ -29,9 +31,10 @@ public class Hero : Character
     protected Hero targetedHero;
     protected UnityAction onDoneAttack;
 
-    public override void InitCharacter(SOCharacter data)
+    public override void InitCharacter(SOCharacter data, UnityAction onDone)
     {
-        base.InitCharacter(data);
+        base.InitCharacter(data, onDone);
+        onDoneAttack += onDone;
         OptionalWarning.EndEventInterrupt.Disable();
         
         attackPatternConfig[0].animation.Events.AddCallback(0, Attack1Callback);
@@ -56,22 +59,10 @@ public class Hero : Character
         return attackPatternConfig[idx];
     }
 
-    public virtual void AttackPattern1(Character target, UnityAction onDone) { }
-    public virtual void AttackPattern2(Character target, UnityAction onDone) { }
-    public virtual void AttackedByEnemy(int rawValue) { }
+    public virtual void AttackPattern(int id, Character target) { }
+    public virtual void AttackedByEnemy(int recievedValue, AttackType type) { }
 
     protected virtual void Attack1Callback() { }
     protected virtual void Attack2Callback() { }
 
-
-    public virtual void AttackPattern3()
-    {
-        Debug.Log("attack 3");
-    }
-
-
-    public virtual void UltimatePattern()
-    {
-        Debug.Log("Ultimate!");
-    }
 }

@@ -12,11 +12,6 @@ public class ArenaHeroTurnPanel : MonoBehaviour
     [SerializeField] private Button fleeBtn;
     [SerializeField] private Button skipBtn;
 
-    [SerializeField] private Image currentCharaImg;
-    [SerializeField] private TMP_Text currentCharaName;
-    [SerializeField] private Slider currentCharaHp;
-    [SerializeField] private Slider currentCharaMana;
-
     public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
     {
         atk1Btn.onClick.AddListener(atk1);
@@ -29,15 +24,5 @@ public class ArenaHeroTurnPanel : MonoBehaviour
     {
         fleeBtn.onClick.AddListener(flee);
         skipBtn.onClick.AddListener(skip);
-    }
-
-    public void SetCurrentCharaUi(Character chara)
-    {
-        currentCharaImg.sprite = chara.GetCharaDetail().charaSprite;
-        currentCharaName.text = chara.GetCharaDetail().charaName;
-        currentCharaHp.maxValue = chara.GetMaxHp();
-        currentCharaHp.value = chara.CurrentHp;
-        currentCharaMana.maxValue = chara.GetMaxMana();
-        currentCharaMana.value = chara.CurrentMana;
     }
 }

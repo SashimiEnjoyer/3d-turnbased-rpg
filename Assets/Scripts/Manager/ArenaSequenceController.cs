@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -36,7 +34,7 @@ public class ArenaSequenceController : MonoBehaviour
         {
             currentHero = currentCharacter as Hero;
             currentEnemy = null;
-            ExecuteHeroAttack(0);
+            ExecuteHeroAttackSequence(0);
         }
         else
         {
@@ -47,25 +45,25 @@ public class ArenaSequenceController : MonoBehaviour
         }
     }
 
-    public void ExecuteEnemyAttack(Hero target)
+    public void ExecuteEnemyAttackSequence(Hero target)
     {
-        currentEnemy.DoAttack(target, onDoneSequence);
+        currentEnemy.DoAttack(target);
     }
 
     private void EnemyAtkSequence()
     {
         Hero h = arenaCharacterController.GetDefaultHero();
-        ExecuteEnemyAttack(h);
+        ExecuteEnemyAttackSequence(h);
         //onDoneSequence?.Invoke();
     }
 
-    public void ExecuteHeroAttack(int idx)
+    public void ExecuteHeroAttackSequence(int idx)
     {
         if (atkPatternIdx != idx)   //Prepare Attack
         {
             AttackPatternConfig config = currentHero.GetAttackConfig(idx);
 
-            if (config.IsBuffCamera())
+            if (config.IsBuffTeamate())
             {
                 currentCharaSequence.GetCharacterContainer().SetActiveBuffCam();
                 arenaCharacterController.SetTargetTypeEnemy(false);
@@ -81,10 +79,7 @@ public class ArenaSequenceController : MonoBehaviour
         }
         else //Execute Attack
         {
-            if(atkPatternIdx == 0)
-                currentHero.AttackPattern1(arenaCharacterController.GetManualSelectedTarget(), onDoneSequence);
-            else if(atkPatternIdx == 1)
-                currentHero.AttackPattern2(arenaCharacterController.GetManualSelectedTarget(), onDoneSequence);
+            currentHero.AttackPattern(atkPatternIdx, arenaCharacterController.GetManualSelectedTarget());
         }
     }
 }
