@@ -36,6 +36,8 @@ public class ArenaHeroTurnPanel : MonoBehaviour
         currentCharaImg.sprite = chara.GetCharaDetail().charaSprite;
         currentCharaName.text = chara.GetCharaDetail().charaName;
         currentCharaHp.maxValue = chara.GetMaxHp();
-        currentCharaHp.value = chara.GetCurrentHp();
+        currentCharaHp.value = chara.CurrentHp;
+        currentCharaMana.maxValue = chara.GetMaxMana();
+        currentCharaMana.value = chara.CurrentMana;
     }
 }

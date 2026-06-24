@@ -12,7 +12,8 @@ public class SOCharacter : ScriptableObject
     public GameObject characterPrefab;
 
     [Header("Stats")]
-    public float health;
-    public float baseDamage;
+    public int health;
+    public int mana;
+    public int baseDamage;
     public int baseSpeed;
 }

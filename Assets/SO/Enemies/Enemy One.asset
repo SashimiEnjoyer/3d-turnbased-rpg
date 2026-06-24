@@ -17,5 +17,6 @@ MonoBehaviour:
   isFriend: 0
   characterPrefab: {fileID: 8742392641935309734, guid: 74bb181844c41a74ba79fe99dbf5ed9d, type: 3}
   health: 10
+  mana: 10
   baseDamage: 1
   baseSpeed: 5

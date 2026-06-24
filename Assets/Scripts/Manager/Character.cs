@@ -8,16 +8,52 @@ public class Character : MonoBehaviour
     [SerializeField] protected AnimancerComponent animComponent;
     [SerializeField] protected Transform targetIndicator;
 
-    protected float maxHp;
-    protected float currentHp;
+    protected int maxHp;
+    private int currentHp;
+    public int CurrentHp
+    {
+        set
+        {
+            currentHp = value;
 
-    protected float finalDmg;
+            if (value < 0)
+                currentHp = 0;
+            else if(value > maxHp)
+                currentHp = maxHp;
+        }
+        get 
+        {
+            return currentHp; 
+        }
+    }
+    public int GetMaxHp() { return maxHp; }
+
+    protected int maxMana;
+    protected int currentMana;
+    public int CurrentMana
+    {
+        set
+        {
+            currentMana = value;
+
+            if (value < 0)
+                currentMana = 0;
+            else if (value > maxHp)
+                currentMana = maxHp;
+        }
+        get
+        {
+            return currentMana;
+        }
+    }
+
+    protected int finalDmg;
     protected int speed;
     protected bool isAlive = true;
 
-    public float GetMaxHp() { return maxHp; }
-    public float GetCurrentHp() { return currentHp; }
-    public float GetFinalDmg() { return finalDmg; }
+    public int GetMaxMana() { return maxMana; }
+
+    public int GetFinalDmg() { return finalDmg; }
     public int GetSpeed() { return speed; }
     public bool CheckIsAlive() { return isAlive; }
     public SOCharacter GetCharaDetail() { return characterData; }
@@ -27,7 +63,11 @@ public class Character : MonoBehaviour
     public virtual void InitCharacter(SOCharacter data) 
     {
         maxHp = data.health;
-        currentHp = maxHp;
+        CurrentHp = maxHp;
+
+        maxMana = data.mana;
+        currentMana = data.mana;
+
         finalDmg = data.baseDamage;
         speed = data.baseSpeed;
     }

@@ -27,13 +27,14 @@ public class CharacterOneManager : Hero
 
     protected override void Attack2Callback()
     {
-        Debug.Log("Healing!!! --> " + tar.name);
+        CurrentHp += 1;
+        CurrentMana -= 1;
     }
 
-    public override void AttackedByEnemy(float rawValue)
+    public override void AttackedByEnemy(int rawValue)
     {
-        currentHp -= rawValue;
-        if (currentHp < 0)
+        CurrentHp -= rawValue;
+        if (CurrentHp < 0)
         {
             isAlive = false;
             gameObject.SetActive(false);

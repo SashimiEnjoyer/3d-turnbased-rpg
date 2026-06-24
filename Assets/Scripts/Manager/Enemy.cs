@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -29,10 +28,10 @@ public class Enemy : Character
         animComponent.Play(attackConfigs[0].animation);
     }
 
-    public void AttackedByPlayer(float rawValue)
+    public void AttackedByPlayer(int rawValue)
     {
-        currentHp -= rawValue;
-        if (currentHp < 0)
+        CurrentHp -= rawValue;
+        if (CurrentHp < 0)
         {
             isAlive = false;
             gameObject.SetActive(false);
