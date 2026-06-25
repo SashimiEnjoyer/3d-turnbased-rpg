@@ -39,7 +39,7 @@ public class Enemy : Character
 
                 OnUpdateUi?.Invoke();
 
-                if (CurrentHp < 0)
+                if (CurrentHp <= 0)
                 {
                     isAlive = false;
                     gameObject.SetActive(false);

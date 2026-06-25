@@ -9,8 +9,7 @@ public class ArenaHeroTurnPanel : MonoBehaviour
     [SerializeField] private ButtonSkill atk2Btn;
     [SerializeField] private ButtonSkill atk3Btn;
     [SerializeField] private ButtonSkill ultBtn;
-    [SerializeField] private Button fleeBtn;
-    [SerializeField] private Button skipBtn;
+
 
     public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
     {
@@ -28,14 +27,4 @@ public class ArenaHeroTurnPanel : MonoBehaviour
         ultBtn.SetButtonSkill(configs[3]);
     }
 
-    public void InitSkipButtons(UnityAction flee, UnityAction skip)
-    {
-        fleeBtn.onClick.AddListener(flee);
-        skipBtn.onClick.AddListener(skip);
-    }
-
-    public void SetButtonText()
-    {
-
-    }
 }

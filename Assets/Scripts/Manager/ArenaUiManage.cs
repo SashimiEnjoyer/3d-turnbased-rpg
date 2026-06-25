@@ -8,6 +8,7 @@ public class ArenaUiManage : MonoBehaviour
     [SerializeField] private GameObject charaSeqUiPrefab;
     [SerializeField] private Transform seqUiParent;
     [SerializeField] private ArenaHeroTurnPanel arenaHeroTurnPanel;
+    [SerializeField] private BaseHudPanel hudPanel;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     [SerializeField] private CharacterDetailPanel[] heroDetailPanels;
@@ -23,36 +24,13 @@ public class ArenaUiManage : MonoBehaviour
         seqUi.Add(charaSeqUi);
     }
 
-    public void SetHeroTurnPanelState(bool isActive) 
-    {
-        arenaHeroTurnPanel.gameObject.SetActive(isActive);
-    }
-
-    public void AssignHeroDetailUi(int indx, Character chara)
-    {
-        heroDetailPanels[indx].SetCurrentCharaUi(chara);
-    }
-
-    public void AssignEnemyDetailUi(int indx, Character chara)
-    {
-        enemyDetailPanels[indx].SetCurrentCharaUi(chara);
-    }
-
-    public void SetButtonSkillDetail(AttackPatternConfig[] configs)
-    {
-        arenaHeroTurnPanel.SetCurrentSkillButtons(configs);
-    }
-
-    public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
-    {
-        arenaHeroTurnPanel.InitActionButtons(atk1, atk2, atk3, ult);
-    }
-
-    public void InitSkipButtons(UnityAction flee, UnityAction skip)
-    {
-        arenaHeroTurnPanel.InitSkipButtons(flee, skip);
-    }
-
+    public void SetHeroTurnPanelState(bool isActive) => arenaHeroTurnPanel.gameObject.SetActive(isActive);
+    public void AssignHeroDetailUi(int indx, Character chara) => heroDetailPanels[indx].SetCurrentCharaUi(chara);
+    public void AssignEnemyDetailUi(int indx, Character chara) => enemyDetailPanels[indx].SetCurrentCharaUi(chara);
+    public void SetButtonSkillDetail(AttackPatternConfig[] configs) => arenaHeroTurnPanel.SetCurrentSkillButtons(configs);
+    public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult) => arenaHeroTurnPanel.InitActionButtons(atk1, atk2, atk3, ult);
+    public void InitSkipButtons(UnityAction flee, UnityAction skip) => hudPanel.InitSkipButtons(flee, skip);
+    public void SetCurrentTurnText(int idx) => hudPanel.SetTurnText(idx);
     public void ActiveWinPanel() => winPanel.SetActive(true);
     public void ActiveLosePanel() => losePanel.SetActive(true);
 

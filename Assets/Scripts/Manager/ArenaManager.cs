@@ -115,6 +115,8 @@ public class ArenaManager : MonoBehaviour
                 arenaUiManage.SetHeroTurnPanelState(false);
                 break;
         }
+
+        arenaUiManage.SetCurrentTurnText(currentRound);
     }
 
     public void NextSequence()
