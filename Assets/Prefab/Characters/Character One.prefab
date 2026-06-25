@@ -143,7 +143,9 @@ MonoBehaviour:
   targetIndicator: {fileID: 83275189929053892}
   hitFx: {fileID: 1922287628337483840}
   attackPatternConfig:
-  - attackType: 0
+  - name: Basic Attack
+    attackImage: {fileID: 21300000, guid: af1f1b45fa6b5e64894c04ceb8a592f7, type: 3}
+    attackType: 0
     value: 5
     cost: 0
     isMultiTarget: 0
@@ -159,7 +161,9 @@ MonoBehaviour:
         _Names: []
       _Clip: {fileID: -203655887218126122, guid: 6f37302ed460b8b438a0990de2108bd4, type: 3}
       _NormalizedStartTime: NaN
-  - attackType: 1
+  - name: Heal
+    attackImage: {fileID: 21300000, guid: af0ae2dbf3d1efb4f82af377950704a2, type: 3}
+    attackType: 1
     value: 3
     cost: 2
     isMultiTarget: 0
@@ -175,7 +179,9 @@ MonoBehaviour:
         _Names: []
       _Clip: {fileID: -203655887218126122, guid: b95229064f27e754a9f1ab637a5e9fdb, type: 3}
       _NormalizedStartTime: NaN
-  - attackType: 2
+  - name: Buff Atk
+    attackImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    attackType: 2
     value: 0
     cost: 0
     isMultiTarget: 0
@@ -188,7 +194,9 @@ MonoBehaviour:
         _Names: []
       _Clip: {fileID: 0}
       _NormalizedStartTime: NaN
-  - attackType: 0
+  - name: Ultimate
+    attackImage: {fileID: 21300000, guid: b0fa70abd2a79904cb00b175dfd8ec7e, type: 3}
+    attackType: 0
     value: 0
     cost: 0
     isMultiTarget: 0

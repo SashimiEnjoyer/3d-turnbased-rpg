@@ -1,0 +1,23 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
+
+public class ButtonSkill : MonoBehaviour
+{
+    [SerializeField] private Button skillBtn;
+    [SerializeField] private Image buttonImg;
+    [SerializeField] private TMP_Text buttonText;
+
+    public void AssignButtonAction(UnityAction action)
+    {
+        skillBtn.onClick.AddListener(action);
+    }
+
+    public void SetButtonSkill(AttackPatternConfig config)
+    {
+        buttonImg.sprite = config.attackImage;
+        buttonText.SetText(config.name);
+    }
+
+}

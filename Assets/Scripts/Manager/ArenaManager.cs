@@ -107,6 +107,7 @@ public class ArenaManager : MonoBehaviour
                 currentTurnEnemy = null;
 
                 arenaUiManage.SetHeroTurnPanelState(true);
+                arenaUiManage.SetButtonSkillDetail(currentTurnHero.GetAllAttackConfig());
                 
                 arenaSequenceController.InitCurrentTurnCharacter(arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence()[currentSequenceIndex], NextSequence);
                 break;

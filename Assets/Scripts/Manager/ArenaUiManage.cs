@@ -38,6 +38,11 @@ public class ArenaUiManage : MonoBehaviour
         enemyDetailPanels[indx].SetCurrentCharaUi(chara);
     }
 
+    public void SetButtonSkillDetail(AttackPatternConfig[] configs)
+    {
+        arenaHeroTurnPanel.SetCurrentSkillButtons(configs);
+    }
+
     public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult)
     {
         arenaHeroTurnPanel.InitActionButtons(atk1, atk2, atk3, ult);

@@ -11,8 +11,9 @@ public enum AttackType
 
 [System.Serializable]
 public class AttackPatternConfig
-{  
-
+{
+    public string name;
+    public Sprite attackImage;
     public AttackType attackType;
     public int value;
     public int cost;
@@ -60,6 +61,8 @@ public class Hero : Character
     {
         return attackPatternConfig[idx];
     }
+
+    public AttackPatternConfig[] GetAllAttackConfig() => attackPatternConfig;
 
     public virtual void AttackPattern(int id, Character target) { }
     public virtual void AttackedByEnemy(int recievedValue, AttackType type) { }
