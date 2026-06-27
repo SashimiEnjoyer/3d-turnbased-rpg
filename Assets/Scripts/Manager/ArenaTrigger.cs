@@ -1,11 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class ArenaTrigger : MonoBehaviour
 {
     [SerializeField] private SOCharacter[] enemies;
     [SerializeField] private Transform teleportPos;
+
+    [SerializeField] private UnityEvent OnObjectTriggering;
+
     public Transform TeleportPos => teleportPos;
+    private bool isInteracted = false;
 
     public void GoToArena()
     {
@@ -16,9 +21,13 @@ public class ArenaTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isInteracted)
+            return;
+
         if(other.CompareTag("Player"))
         {
-            GoToArena();
+            OnObjectTriggering?.Invoke();
+            isInteracted = true;
         }
     }
 }

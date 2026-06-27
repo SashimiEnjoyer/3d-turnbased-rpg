@@ -6,7 +6,7 @@ public class RoamSceneManager : MonoBehaviour
 {
     [SerializeField] private ThirdPersonController roamController;
     [SerializeField] private ArenaTrigger[] GoToArenaTriggers;
-     
+
     private GameObject mainSpawnedCharacter;
 
     private IEnumerator Start()
