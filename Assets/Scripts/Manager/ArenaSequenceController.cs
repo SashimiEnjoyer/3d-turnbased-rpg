@@ -1,9 +1,12 @@
+using DG.Tweening;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ArenaSequenceController : MonoBehaviour
 {
     [SerializeField] private ArenaCharactersController arenaCharacterController;
+
     public ArenaCharactersController ArenaCharacterController => arenaCharacterController;
 
     private CharacterSequence currentCharaSequence;

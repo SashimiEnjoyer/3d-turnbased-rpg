@@ -1,6 +1,9 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public enum FightTurn
@@ -13,6 +16,7 @@ public enum FightTurn
 public class ArenaManager : MonoBehaviour
 {
     [SerializeField] private int maxTurn;
+    [SerializeField] private CinemachineCamera newTurnCam;
     [SerializeField] private ArenaUiManage arenaUiManage;
     [SerializeField] private ArenaSequenceController arenaSequenceController;
 
@@ -61,8 +65,11 @@ public class ArenaManager : MonoBehaviour
 
         }
 
-        BuildSequence();
-        CheckThisTurn();
+        NewTurnSequence(() =>
+        {
+            BuildSequence();
+            CheckThisTurn();
+        });
 
         arenaUiManage.InitActionButtons(
             ()=> arenaSequenceController.ExecuteHeroAttackSequence(0), 
@@ -78,6 +85,20 @@ public class ArenaManager : MonoBehaviour
     {
         var getSortedCharacter = arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence().Select(u => u.GetCharacter()).ToList();
         arenaUiManage.ArrangeSequenceUi(getSortedCharacter);
+    }
+
+    private void NewTurnSequence(UnityAction onDone = null)
+    {
+        Sequence seq = DOTween.Sequence();
+        seq.AppendCallback(() => newTurnCam.Priority.Value = 99);
+        seq.AppendCallback(() => arenaUiManage.SetActiveNewTurn(true, currentRound + 1, maxTurn));
+        seq.AppendInterval(3f);
+        seq.AppendCallback(()  => 
+        {
+            newTurnCam.Priority.Value = -1;
+            arenaUiManage.SetActiveNewTurn(false);
+        });
+        seq.AppendCallback(() => onDone?.Invoke()); 
     }
 
     public void CheckThisTurn()
@@ -132,18 +153,25 @@ public class ArenaManager : MonoBehaviour
         }
 
         currentSequenceIndex++;
-
+       
         if (currentSequenceIndex >= arenaSequenceController.ArenaCharacterController.GetSortedCharaSequence().Count)
         {
-            BuildSequence();
-            currentSequenceIndex = 0;
             currentRound++;
-
+            currentSequenceIndex = 0;
+            
             if (currentRound >= maxTurn)
             {
                 arenaUiManage.ActiveLosePanel();
                 return;
             }
+
+            NewTurnSequence(()=> 
+            {
+                BuildSequence();
+                CheckThisTurn();
+            });
+
+            return;
         }
 
         CheckThisTurn();
