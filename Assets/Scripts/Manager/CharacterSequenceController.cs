@@ -1,4 +1,7 @@
 using DG.Tweening;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
@@ -63,7 +66,7 @@ public class CharacterSequenceController : MonoBehaviour
     public void ExecuteHeroAttackSequence(int idx)
     {
         AttackPatternConfig config = currentHero.GetAttackConfig(idx);
-        
+
         if (atkPatternIdx != idx)   //Prepare Attack
         {
 
@@ -83,8 +86,21 @@ public class CharacterSequenceController : MonoBehaviour
         }
         else //Execute Attack
         {
-            if(currentHero.CurrentMana >= config.cost)
-                currentHero.AttackPattern(atkPatternIdx, arenaCharacterController.GetManualSelectedTarget());
+            if (currentHero.CurrentMana >= config.cost)
+            {
+                if (config.isMultiTarget)
+                {
+                    List<Character> temp = new();
+                    foreach (CharacterSequence c in arenaCharacterController.GetSortedCharaSequence()) { temp.Add(c.GetCharacter()); }
+                    currentHero.AttackPattern(atkPatternIdx, temp);
+                }
+                else
+                {
+                    List<Character> temp = new();
+                    temp.Add(arenaCharacterController.GetManualSelectedTarget());
+                    currentHero.AttackPattern(atkPatternIdx, temp);
+                }
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 using Animancer;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -31,6 +32,9 @@ public class Hero : Character
 {
     [SerializeField] protected AttackPatternConfig[] attackPatternConfig;
 
+    protected List<Enemy> targetedEnemies = new();
+    protected List<Hero> targetedHeroes = new();
+
     protected Enemy targetedEnemy;
     protected Hero targetedHero;
     protected UnityAction onDoneAttack;
@@ -62,6 +66,13 @@ public class Hero : Character
             onDoneAttack?.Invoke();
             animComponent.Stop();
         };
+
+        attackPatternConfig[3].animation.Events.AddCallback(0, UltCallback);
+        attackPatternConfig[3].animation.Events.OnEnd = () =>
+        {
+            onDoneAttack?.Invoke();
+            animComponent.Stop();
+        };
     }
 
     public AttackPatternConfig GetAttackConfig(int idx)
@@ -71,11 +82,12 @@ public class Hero : Character
 
     public AttackPatternConfig[] GetAllAttackConfig() => attackPatternConfig;
 
-    public virtual void AttackPattern(int id, Character target) { }
+    public virtual void AttackPattern(int id, List<Character> targets) { }
     public virtual void AttackedByEnemy(int recievedValue, AttackType type) { }
 
     protected virtual void Attack1Callback() { }
     protected virtual void Attack2Callback() { }
     protected virtual void Attack3Callback() { }
+    protected virtual void UltCallback() { }
 
 }

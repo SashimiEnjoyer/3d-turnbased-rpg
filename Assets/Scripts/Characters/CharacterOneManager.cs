@@ -1,23 +1,35 @@
 
 
+using System.Collections.Generic;
+
 public class CharacterOneManager : Hero
 {
     private AttackPatternConfig config;
     private int additionalDmg;
 
-    public override void AttackPattern(int id, Character target)
+    public override void AttackPattern(int id, List<Character> targets)
     {
         config = attackPatternConfig[id];
 
         if (config.IsBuffTeamate())
         {
-            targetedHero = target as Hero;
-            targetedEnemy = null;
+            targetedHeroes.Clear();
+            targetedEnemies.Clear();
+            foreach (var item in targets)
+            {
+                if(item is Hero)
+                    targetedHeroes.Add(item as Hero);
+            }
         }
         else
         {
-            targetedHero = null;
-            targetedEnemy = target as Enemy;
+            targetedHeroes.Clear();
+            targetedEnemies.Clear();
+            foreach (var item in targets)
+            {
+                if (item is Enemy)
+                    targetedEnemies.Add(item as Enemy);
+            }
         }
         animComponent.Play(config.animation);
     }
@@ -25,13 +37,21 @@ public class CharacterOneManager : Hero
     protected override void Attack1Callback()
     {
         CurrentMana += 1;
-        targetedEnemy.AttackedByPlayer(config.value + additionalDmg, config.attackType);
+
+        foreach (var item in targetedEnemies)
+        {
+            item.AttackedByPlayer(config.value + additionalDmg, config.attackType);
+        }
         OnUpdateUi?.Invoke();
     }
 
     protected override void Attack2Callback()
     {
-        targetedHero.AttackedByEnemy(config.value, config.attackType);
+        foreach (var item in targetedHeroes)
+        {
+            item.AttackedByEnemy(config.value, config.attackType);
+        }
+
         CurrentMana -= config.cost;
 
         OnUpdateUi?.Invoke();
@@ -39,7 +59,29 @@ public class CharacterOneManager : Hero
 
     protected override void Attack3Callback()
     {
-        targetedHero.AttackedByEnemy(config.value, config.attackType);
+        foreach (var item in targetedHeroes)
+        {
+            item.AttackedByEnemy(config.value, config.attackType);
+        }
+
+        CurrentMana -= config.cost;
+
+        OnUpdateUi?.Invoke();
+    }
+
+    protected override void UltCallback()
+    {
+        foreach (var item in targetedEnemies)
+        {
+            item.AttackedByPlayer(config.value + additionalDmg, config.attackType);
+
+            if (config.effect != null)
+            {
+                currentEffect = Instantiate(config.effect);
+                currentEffect.transform.position = item.GetEffectTarget().position;
+                Destroy(currentEffect, 2f);
+            }
+        }
         CurrentMana -= config.cost;
 
         OnUpdateUi?.Invoke();
@@ -51,12 +93,19 @@ public class CharacterOneManager : Hero
         {
             case AttackType.Heal:
                 CurrentHp += receivedValue;
+
                 if (config.effect != null)
                 {
-                    currentEffect = Instantiate(config.effect, targetedHero.GetEffectTarget());
-                    Destroy(currentEffect, 2f);
+                    foreach (var item in targetedHeroes)
+                    {
+                        currentEffect = Instantiate(config.effect);
+                        currentEffect.transform.position = item.GetEffectTarget().position;
+                        Destroy(currentEffect, 2f);
+                    }
                 }
+
                 OnUpdateUi?.Invoke();
+
                 break;
 
                 case AttackType.Buff:
@@ -64,8 +113,12 @@ public class CharacterOneManager : Hero
 
                 if (config.effect != null)
                 {
-                    currentEffect = Instantiate(config.effect, targetedHero.GetEffectTarget());
-                    Destroy(currentEffect, 2f);
+                    foreach (var item in targetedHeroes)
+                    {
+                        currentEffect = Instantiate(config.effect);
+                        currentEffect.transform.position = item.GetEffectTarget().position;
+                        Destroy(currentEffect, 2f);
+                    }
                 }
 
                 break;
