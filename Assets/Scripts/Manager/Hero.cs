@@ -18,6 +18,7 @@ public class AttackPatternConfig
     public int value;
     public int cost;
     public bool isMultiTarget;
+    public ParticleSystem effect;
     public ClipTransition animation;
 
     public bool IsBuffTeamate()
@@ -33,6 +34,7 @@ public class Hero : Character
     protected Enemy targetedEnemy;
     protected Hero targetedHero;
     protected UnityAction onDoneAttack;
+    protected ParticleSystem currentEffect;
 
     public override void InitCharacter(SOCharacter data, UnityAction onDone)
     {
@@ -43,7 +45,6 @@ public class Hero : Character
         attackPatternConfig[0].animation.Events.AddCallback(0, Attack1Callback);
         attackPatternConfig[0].animation.Events.OnEnd = ()=>
         {
-            Debug.Log("Animation Attack 1 Ended");
             onDoneAttack?.Invoke();
             animComponent.Stop();
         };
@@ -51,7 +52,13 @@ public class Hero : Character
         attackPatternConfig[1].animation.Events.AddCallback(0, Attack2Callback);
         attackPatternConfig[1].animation.Events.OnEnd = () =>
         {
-            Debug.Log("Animation Attack 2 Ended");
+            onDoneAttack?.Invoke();
+            animComponent.Stop();
+        };
+
+        attackPatternConfig[2].animation.Events.AddCallback(0, Attack3Callback);
+        attackPatternConfig[2].animation.Events.OnEnd = () =>
+        {
             onDoneAttack?.Invoke();
             animComponent.Stop();
         };
@@ -69,5 +76,6 @@ public class Hero : Character
 
     protected virtual void Attack1Callback() { }
     protected virtual void Attack2Callback() { }
+    protected virtual void Attack3Callback() { }
 
 }

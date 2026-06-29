@@ -8,6 +8,7 @@ public class ButtonSkill : MonoBehaviour
     [SerializeField] private Button skillBtn;
     [SerializeField] private Image buttonImg;
     [SerializeField] private TMP_Text buttonText;
+    [SerializeField] private TMP_Text costText;
 
     public void AssignButtonAction(UnityAction action)
     {
@@ -18,6 +19,7 @@ public class ButtonSkill : MonoBehaviour
     {
         buttonImg.sprite = config.attackImage;
         buttonText.SetText(config.name);
+        costText.SetText($"Mana: {config.cost}");
     }
 
 }

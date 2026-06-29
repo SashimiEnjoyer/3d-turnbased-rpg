@@ -62,9 +62,10 @@ public class CharacterSequenceController : MonoBehaviour
 
     public void ExecuteHeroAttackSequence(int idx)
     {
+        AttackPatternConfig config = currentHero.GetAttackConfig(idx);
+        
         if (atkPatternIdx != idx)   //Prepare Attack
         {
-            AttackPatternConfig config = currentHero.GetAttackConfig(idx);
 
             if (config.IsBuffTeamate())
             {
@@ -82,7 +83,8 @@ public class CharacterSequenceController : MonoBehaviour
         }
         else //Execute Attack
         {
-            currentHero.AttackPattern(atkPatternIdx, arenaCharacterController.GetManualSelectedTarget());
+            if(currentHero.CurrentMana >= config.cost)
+                currentHero.AttackPattern(atkPatternIdx, arenaCharacterController.GetManualSelectedTarget());
         }
     }
 }

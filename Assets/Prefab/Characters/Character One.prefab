@@ -102,6 +102,7 @@ Transform:
   - {fileID: 3043782119937716507}
   - {fileID: 3713940168443077888}
   - {fileID: 1737277173123772604}
+  - {fileID: 1976210564214643260}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2772101966281837293
@@ -142,6 +143,7 @@ MonoBehaviour:
   animComponent: {fileID: 4246465981599398314}
   targetIndicator: {fileID: 83275189929053892}
   hitFx: {fileID: 1922287628337483840}
+  effectTarget: {fileID: 1976210564214643260}
   attackPatternConfig:
   - name: Basic Attack
     attackImage: {fileID: 21300000, guid: af1f1b45fa6b5e64894c04ceb8a592f7, type: 3}
@@ -149,6 +151,7 @@ MonoBehaviour:
     value: 5
     cost: 0
     isMultiTarget: 0
+    effect: {fileID: 0}
     animation:
       _FadeDuration: 0.25
       _Speed: 1
@@ -167,6 +170,7 @@ MonoBehaviour:
     value: 3
     cost: 2
     isMultiTarget: 0
+    effect: {fileID: 160683436284097199, guid: 31be2631dd55d984f8f570a537ed6b12, type: 3}
     animation:
       _FadeDuration: 0.25
       _Speed: 1
@@ -182,17 +186,21 @@ MonoBehaviour:
   - name: Buff Atk
     attackImage: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     attackType: 2
-    value: 0
-    cost: 0
+    value: 2
+    cost: 12
     isMultiTarget: 0
+    effect: {fileID: 7437692671991729240, guid: 880e0aa9a46bc614e97f15d3d10b1423, type: 3}
     animation:
       _FadeDuration: 0.25
       _Speed: 1
       _Events:
-        _NormalizedTimes: []
-        _Callbacks: []
+        _NormalizedTimes:
+        - 0.6
+        - NaN
+        _Callbacks:
+        - rid: 7394243852123505118
         _Names: []
-      _Clip: {fileID: 0}
+      _Clip: {fileID: -203655887218126122, guid: b95229064f27e754a9f1ab637a5e9fdb, type: 3}
       _NormalizedStartTime: NaN
   - name: Ultimate
     attackImage: {fileID: 21300000, guid: b0fa70abd2a79904cb00b175dfd8ec7e, type: 3}
@@ -200,6 +208,7 @@ MonoBehaviour:
     value: 0
     cost: 0
     isMultiTarget: 0
+    effect: {fileID: 0}
     animation:
       _FadeDuration: 0.25
       _Speed: 1
@@ -218,6 +227,11 @@ MonoBehaviour:
         m_PersistentCalls:
           m_Calls: []
     - rid: 7394243706300924011
+      type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
+      data:
+        m_PersistentCalls:
+          m_Calls: []
+    - rid: 7394243852123505118
       type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
       data:
         m_PersistentCalls:
@@ -1337,6 +1351,37 @@ Transform:
   m_Children:
   - {fileID: 3330430238902588314}
   m_Father: {fileID: 6634359758742380382}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4214050404617556883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1976210564214643260}
+  m_Layer: 8
+  m_Name: Target For Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1976210564214643260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4214050404617556883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.507, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 965435874529325335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4388810945511040096
 GameObject:

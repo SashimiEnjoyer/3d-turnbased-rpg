@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
     [SerializeField] protected AnimancerComponent animComponent;
     [SerializeField] protected Transform targetIndicator;
     [SerializeField] protected ParticleSystem hitFx;
+    [SerializeField] protected Transform effectTarget;
 
     protected int maxHp;
     private int currentHp;
@@ -58,6 +59,7 @@ public class Character : MonoBehaviour
     public bool CheckIsAlive() { return isAlive; }
     public SOCharacter GetCharaDetail() { return characterData; }
     public Transform GetTargetIndicator() { return targetIndicator; }
+    public Transform GetEffectTarget() {  return effectTarget; }
 
     public UnityAction OnUpdateUi;
 
