@@ -3,7 +3,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class ArenaSequenceController : MonoBehaviour
+public class CharacterSequenceController : MonoBehaviour
 {
     [SerializeField] private ArenaCharactersController arenaCharacterController;
 

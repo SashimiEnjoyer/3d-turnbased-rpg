@@ -19,5 +19,7 @@ public class TargetIndicatorUi : MonoBehaviour
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(objectWorldPosition);
 
         indicatorRect.position = screenPosition;
+
+        transform.Rotate(Vector3.forward * 30 * Time.deltaTime);
     }
 }

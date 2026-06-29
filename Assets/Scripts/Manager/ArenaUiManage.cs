@@ -17,12 +17,11 @@ public class ArenaUiManage : MonoBehaviour
 
     [SerializeField] private List<CharaSequenceUiPanel> seqUi = new();
 
-    public List<CharaSequenceUiPanel> SequencesUi;
-
-    public void InitCharaSeqUi()
+    public CharaSequenceUiPanel InitCharaSeqUi()
     {
         CharaSequenceUiPanel charaSeqUi = Instantiate(charaSeqUiPrefab, seqUiParent).GetComponent<CharaSequenceUiPanel>();
         seqUi.Add(charaSeqUi);
+        return charaSeqUi;
     }
 
     public void SetHeroTurnPanelState(bool isActive) => arenaHeroTurnPanel.gameObject.SetActive(isActive);
@@ -56,6 +55,15 @@ public class ArenaUiManage : MonoBehaviour
             }
 
             seqUi[temp].InitUi(charas[temp]);
+        }
+    }
+
+    public void SetCharacterSeqUiActive(int idx)
+    {
+        for (int i = 0; i < seqUi.Count; i++)
+        {
+            int temp = i;
+            seqUi[temp].SetActiveIndicatorState(temp == idx);
         }
     }
 }

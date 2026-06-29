@@ -42,6 +42,7 @@ public class Enemy : Character
                 if (CurrentHp <= 0)
                 {
                     isAlive = false;
+                    speed = 0;
                     gameObject.SetActive(false);
                 }
                 break;

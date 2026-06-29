@@ -20,7 +20,6 @@ public class RoamSceneManager : MonoBehaviour
         if (GameManager.instance.playManager.CheckWasWinningBefore())
         {
             roamController.Controller.enabled = false;
-            Debug.Log(GameManager.instance.playManager.GetLastEnemyIdx());
             roamController.transform.position = GoToArenaTriggers[GameManager.instance.playManager.GetLastEnemyIdx()].TeleportPos.position;
             GoToArenaTriggers[0].gameObject.SetActive(false);
             GameManager.instance.playManager.FlagWinningBattle(false);

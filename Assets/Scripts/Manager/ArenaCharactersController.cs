@@ -18,7 +18,6 @@ public class CharacterSequence
 
     public Character GetCharacter() => character;
     public ArenaCharacterContainer GetCharacterContainer() => characterContainer;
-
 }
 
 public class ArenaCharactersController : MonoBehaviour
