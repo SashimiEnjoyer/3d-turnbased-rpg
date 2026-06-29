@@ -7,6 +7,7 @@ public class ButtonSkill : MonoBehaviour
 {
     [SerializeField] private Button skillBtn;
     [SerializeField] private Image buttonImg;
+    [SerializeField] private GameObject activeIndicator;
     [SerializeField] private TMP_Text buttonText;
     [SerializeField] private TMP_Text costText;
 
@@ -14,6 +15,8 @@ public class ButtonSkill : MonoBehaviour
     {
         skillBtn.onClick.AddListener(action);
     }
+
+    public void SetActiveIndicatorState(bool state) => activeIndicator.SetActive(state);
 
     public void SetButtonSkill(AttackPatternConfig config)
     {

@@ -1,13 +1,10 @@
-using DG.Tweening;
-using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterSequenceController : MonoBehaviour
 {
+    [SerializeField] private ArenaUiManage uiManager;
     [SerializeField] private ArenaCharactersController arenaCharacterController;
 
     public ArenaCharactersController ArenaCharacterController => arenaCharacterController;
@@ -60,7 +57,6 @@ public class CharacterSequenceController : MonoBehaviour
     {
         Hero h = arenaCharacterController.GetDefaultHero();
         ExecuteEnemyAttackSequence(h);
-        //onDoneSequence?.Invoke();
     }
 
     public void ExecuteHeroAttackSequence(int idx)
@@ -81,7 +77,7 @@ public class CharacterSequenceController : MonoBehaviour
                 arenaCharacterController.SetTargetTypeEnemy(true);
                 currentCharaSequence.GetCharacterContainer().SetBaseCamTarget(arenaCharacterController.GetManualSelectedTarget().GetTargetIndicator());
             }
-
+            uiManager.SetActiveButtonIndicator(idx);
             atkPatternIdx = idx;
         }
         else //Execute Attack

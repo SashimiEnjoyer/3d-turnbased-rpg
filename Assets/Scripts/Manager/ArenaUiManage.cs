@@ -29,6 +29,7 @@ public class ArenaUiManage : MonoBehaviour
     public void AssignEnemyDetailUi(int indx, Character chara) => enemyDetailPanels[indx].SetCurrentCharaUi(chara);
     public void SetButtonSkillDetail(AttackPatternConfig[] configs) => arenaHeroTurnPanel.SetCurrentSkillButtons(configs);
     public void InitActionButtons(UnityAction atk1, UnityAction atk2, UnityAction atk3, UnityAction ult) => arenaHeroTurnPanel.InitActionButtons(atk1, atk2, atk3, ult);
+    public void SetActiveButtonIndicator(int idx) => arenaHeroTurnPanel.SetButtonSkilLActiveState(idx);
     public void InitSkipButtons(UnityAction flee, UnityAction skip) => hudPanel.InitSkipButtons(flee, skip);
     public void SetCurrentTurnText(int idx) => hudPanel.SetTurnText(idx);
     public void ActiveWinPanel() => winPanel.SetActive(true);

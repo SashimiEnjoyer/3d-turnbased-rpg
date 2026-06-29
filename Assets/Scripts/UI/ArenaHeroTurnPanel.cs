@@ -19,6 +19,14 @@ public class ArenaHeroTurnPanel : MonoBehaviour
         ultBtn.AssignButtonAction(ult);
     }
 
+    public void SetButtonSkilLActiveState(int idx)
+    {
+        atk1Btn.SetActiveIndicatorState(idx == 0);
+        atk2Btn.SetActiveIndicatorState(idx == 1);
+        atk3Btn.SetActiveIndicatorState(idx == 2);
+        ultBtn.SetActiveIndicatorState(idx == 3);
+    }
+
     public void SetCurrentSkillButtons(AttackPatternConfig[] configs)
     {
         atk1Btn.SetButtonSkill(configs[0]);
