@@ -137,6 +137,33 @@ MonoBehaviour:
   targetIndicator: {fileID: 7581587099720184864}
   hitFx: {fileID: 6266126704020494799}
   effectTarget: {fileID: 7491832960483491491}
+  idleAnim:
+    _FadeDuration: 0.25
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -3100369314251171874, guid: 12e52e465ed793a4d801955e9f964a82, type: 3}
+    _NormalizedStartTime: NaN
+  hurtAnim:
+    _FadeDuration: 0.25
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: d50f7829fdedce14f81a7fb985ae7a4d, type: 3}
+    _NormalizedStartTime: NaN
+  dieAnim:
+    _FadeDuration: 0.25
+    _Speed: 1
+    _Events:
+      _NormalizedTimes: []
+      _Callbacks: []
+      _Names: []
+    _Clip: {fileID: -203655887218126122, guid: 699325aa6a7017642aae3cf22921e72d, type: 3}
+    _NormalizedStartTime: NaN
   attackConfigs:
   - name: 
     attackImage: {fileID: 0}

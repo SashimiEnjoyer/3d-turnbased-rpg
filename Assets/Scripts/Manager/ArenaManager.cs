@@ -104,7 +104,6 @@ public class ArenaManager : MonoBehaviour
 
     public void CheckThisTurn()
     {
-
         currentCharaSeq = sortedCharacterSequence[currentSequenceIndex];
         Character ch = currentCharaSeq.GetCharacter();
 

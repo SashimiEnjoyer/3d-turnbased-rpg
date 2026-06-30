@@ -10,6 +10,10 @@ public class Character : MonoBehaviour
     [SerializeField] protected ParticleSystem hitFx;
     [SerializeField] protected Transform effectTarget;
 
+    [SerializeField] protected ClipTransition idleAnim;
+    [SerializeField] protected ClipTransition hurtAnim;
+    [SerializeField] protected ClipTransition dieAnim;
+
     protected int maxHp;
     private int currentHp;
     public int CurrentHp

@@ -77,6 +77,7 @@ public class Hero : Character
 
     public AttackPatternConfig GetAttackConfig(int idx)
     {
+        animComponent.Play(idleAnim);
         return attackPatternConfig[idx];
     }
 

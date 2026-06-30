@@ -25,6 +25,7 @@ public class Enemy : Character
 
     public void DoAttack(Hero target)
     {
+        animComponent.Play(idleAnim);
         targetedHero = target;
         animComponent.Play(attackConfigs[0].animation);
     }
@@ -36,6 +37,7 @@ public class Enemy : Character
             default:
                 hitFx.Emit(1);
                 CurrentHp -= recievedValue;
+                animComponent.Play(hurtAnim);
 
                 OnUpdateUi?.Invoke();
 
@@ -43,7 +45,7 @@ public class Enemy : Character
                 {
                     isAlive = false;
                     speed = 0;
-                    gameObject.SetActive(false);
+                    animComponent.Play(dieAnim);
                 }
                 break;
         }

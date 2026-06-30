@@ -126,6 +126,7 @@ public class CharacterOneManager : Hero
             default:
                 hitFx.Emit(1);
                 CurrentHp -= receivedValue;
+                animComponent.Play(hurtAnim);
 
                 OnUpdateUi?.Invoke();
 
@@ -133,7 +134,7 @@ public class CharacterOneManager : Hero
                 {
                     isAlive = false;
                     speed = 0;
-                    gameObject.SetActive(false);
+                    animComponent.Play(dieAnim);
                 }
                 break;
         }
