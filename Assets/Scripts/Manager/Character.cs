@@ -79,5 +79,7 @@ public class Character : MonoBehaviour
         speed = data.baseSpeed;
     }
 
+    public void PlayIdleAnim() => animComponent.Play(idleAnim);
+
     public bool CheckIsFriend() => characterData.isFriend;
 }

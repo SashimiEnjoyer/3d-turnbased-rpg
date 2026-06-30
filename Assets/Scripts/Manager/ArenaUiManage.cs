@@ -8,6 +8,7 @@ public class ArenaUiManage : MonoBehaviour
     [SerializeField] private GameObject charaSeqUiPrefab;
     [SerializeField] private Transform seqUiParent;
     [SerializeField] private ArenaHeroTurnPanel arenaHeroTurnPanel;
+    [SerializeField] private WarningPanel warningPanel;
     [SerializeField] private BaseHudPanel hudPanel;
     [SerializeField] private NewTurnPanel newTurnPanel;
     [SerializeField] private GameObject winPanel;
@@ -42,6 +43,14 @@ public class ArenaUiManage : MonoBehaviour
         {
             newTurnPanel.SetCurrentTurn(currTurn, maxTurn);
         }
+    }
+
+    public void ActivateWarningPanel()
+    {
+        if(warningPanel.gameObject.activeInHierarchy)
+            warningPanel.gameObject.SetActive(false);
+
+        warningPanel.gameObject.SetActive(true);
     }
 
     public void ArrangeSequenceUi(List<Character> charas)

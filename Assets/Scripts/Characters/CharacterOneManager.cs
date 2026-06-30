@@ -119,7 +119,9 @@ public class CharacterOneManager : Hero
                         currentEffect.transform.position = item.GetEffectTarget().position;
                         Destroy(currentEffect, 2f);
                     }
+
                 }
+                OnUpdateUi?.Invoke();
 
                 break;
 

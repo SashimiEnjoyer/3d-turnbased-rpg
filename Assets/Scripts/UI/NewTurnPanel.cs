@@ -13,5 +13,5 @@ public class NewTurnPanel : MonoBehaviour
         indicatorRect.DOPunchScale(Vector3.one * 0.1f, 0.4f, 1, 1);
     }
 
-    public void SetCurrentTurn(int idx, int maxTurn) => turnText.SetText($"Next Turn {idx}/{maxTurn}");
+    public void SetCurrentTurn(int idx, int maxTurn) => turnText.SetText($"Turn {idx}/{maxTurn}");
 }

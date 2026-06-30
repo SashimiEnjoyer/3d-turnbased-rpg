@@ -97,6 +97,10 @@ public class CharacterSequenceController : MonoBehaviour
                     currentHero.AttackPattern(atkPatternIdx, temp);
                 }
             }
+            else
+            {
+                uiManager.ActivateWarningPanel();
+            }
         }
     }
 }

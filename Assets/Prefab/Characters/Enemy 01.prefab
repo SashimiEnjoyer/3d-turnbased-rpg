@@ -150,8 +150,10 @@ MonoBehaviour:
     _FadeDuration: 0.25
     _Speed: 1
     _Events:
-      _NormalizedTimes: []
-      _Callbacks: []
+      _NormalizedTimes:
+      - NaN
+      _Callbacks:
+      - rid: 7394243863855235445
       _Names: []
     _Clip: {fileID: -203655887218126122, guid: d50f7829fdedce14f81a7fb985ae7a4d, type: 3}
     _NormalizedStartTime: NaN
@@ -192,6 +194,23 @@ MonoBehaviour:
       data:
         m_PersistentCalls:
           m_Calls: []
+    - rid: 7394243863855235445
+      type: {class: UnityEvent, ns: Animancer, asm: Kybernetik.Animancer}
+      data:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 8813905217323910387}
+            m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+            m_MethodName: PlayIdleAnim
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!114 &7365120918526403278
 MonoBehaviour:
   m_ObjectHideFlags: 0
