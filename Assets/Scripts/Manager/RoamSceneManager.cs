@@ -1,11 +1,13 @@
 using StarterAssets;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoamSceneManager : MonoBehaviour
 {
     [SerializeField] private ThirdPersonController roamController;
     [SerializeField] private ArenaTrigger[] GoToArenaTriggers;
+    [SerializeField] private GameObject gameEndPanel;
 
     private GameObject mainSpawnedCharacter;
 
@@ -26,4 +28,13 @@ public class RoamSceneManager : MonoBehaviour
             roamController.Controller.enabled = true;
         }
     }
+
+    public void TriggerGameEnding()
+    {
+        gameEndPanel.SetActive(true);
+        GameManager.instance.SwitchActionMaps("Dialogue");
+    }
+
+    public void RestartGame() => SceneManager.LoadSceneAsync("Roam");
+    public void QuitGame() => Application.Quit();
 }

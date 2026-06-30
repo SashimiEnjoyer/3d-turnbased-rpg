@@ -4322,7 +4322,7 @@ GameObject:
   - component: {fileID: 1243260584}
   - component: {fileID: 1243260583}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4607,13 +4607,14 @@ GameObject:
   - component: {fileID: 1315027457}
   - component: {fileID: 1315027459}
   - component: {fileID: 1315027458}
+  - component: {fileID: 1315027460}
   m_Layer: 5
   m_Name: Active Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1315027457
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4630,7 +4631,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 84, y: -89.4}
+  m_AnchoredPosition: {x: 84, y: -60}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1315027458
@@ -4671,6 +4672,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315027456}
   m_CullTransparentMesh: 1
+--- !u!114 &1315027460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315027456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d35e5578ac9a5478078002541721bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiBouncing
+  rec: {fileID: 1315027457}
+  freq: 2
+  height: 20
 --- !u!1 &1345600296
 GameObject:
   m_ObjectHideFlags: 0
@@ -6283,7 +6299,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1863258195
 RectTransform:
   m_ObjectHideFlags: 0

@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 2203420776468667756}
   - component: {fileID: 3804851484350705775}
   - component: {fileID: 2702490349584113478}
+  - component: {fileID: 8783813014900426577}
   m_Layer: 5
   m_Name: Active Indicator
   m_TagString: Untagged
@@ -171,7 +172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 65.1, y: -66.6}
+  m_AnchoredPosition: {x: 65.1, y: -40}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3804851484350705775
@@ -212,6 +213,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8783813014900426577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247696185662781421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d35e5578ac9a5478078002541721bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UiBouncing
+  rec: {fileID: 2203420776468667756}
+  freq: 2
+  height: 10
 --- !u!1 &6599873575689529714
 GameObject:
   m_ObjectHideFlags: 0

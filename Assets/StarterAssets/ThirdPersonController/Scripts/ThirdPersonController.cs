@@ -9,9 +9,7 @@ using UnityEngine.InputSystem;
 namespace StarterAssets
 {
     [RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM 
-    [RequireComponent(typeof(PlayerInput))]
-#endif
+
     public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
@@ -142,18 +140,16 @@ namespace StarterAssets
             _animator = GetComponentInChildren<Animator>();
             _hasAnimator = _animator != null;
             _controller = GetComponent<CharacterController>();
-            _input = GetComponent<StarterAssetsInputs>();
-#if ENABLE_INPUT_SYSTEM 
-            _playerInput = GetComponent<PlayerInput>();
-#else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
+            _playerInput = GameManager.instance.playerInputHandler.GetPlayerInput();
+            _input = GameManager.instance.playerInputHandler.GetGameInputs();
 
             AssignAnimationIDs();
 
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            GameManager.instance.SwitchActionMaps("Player");
         }
 
         private void Update()

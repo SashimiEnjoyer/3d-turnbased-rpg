@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GameManager : MonoBehaviour
     public InGameCharaDatabase charaDatabase;
     public PlayManager playManager;
     public PlayerDataManager playerDataManager;
+    public PlayerInputHandler playerInputHandler;
 
     [SerializeField] private SOCharacter defaultChara;
 
@@ -34,17 +36,17 @@ public class GameManager : MonoBehaviour
         return playManager.GetEnemiesToFight();
     }
 
-    public GameObject GetCharacter(SOCharacter chara)
+    public GameObject GetCharacterFromDatabase(SOCharacter chara)
     {
         return charaDatabase.GetCharacter(chara);
     }
 
-    public GameObject GetEnemy(SOCharacter chara)
+    public GameObject GetEnemyFromDatabase(SOCharacter chara)
     {
         return charaDatabase.GetEnemy(chara);
     }
 
-    public SOCharacter GetDefaultChara()
+    public SOCharacter GetDefaultCharaDatabase()
     {
         return defaultChara;
     }
@@ -52,5 +54,11 @@ public class GameManager : MonoBehaviour
     public PlayerData GetPlayerData()
     {
         return playerDataManager.playerData;
+    }
+
+    public void SwitchActionMaps(string name) 
+    {
+        Debug.Log("Switch Action Maps -> " + name);
+        playerInputHandler.SwitchActionMaps(name);
     }
 }

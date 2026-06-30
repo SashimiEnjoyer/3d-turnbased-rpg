@@ -1,13 +1,19 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameStartController : MonoBehaviour
 {
-    [SerializeField] private GameManager gameManager;
 
     private void Start()
     {
-        gameManager.InitAllManagers();
+        StartCoroutine(ExecuteLoadScene());
+    }
+
+    private IEnumerator ExecuteLoadScene()
+    {
+        yield return new WaitUntil(()=> GameManager.instance != null);
+        GameManager.instance.InitAllManagers();
         SceneManager.LoadSceneAsync("Roam");
     }
 }

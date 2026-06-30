@@ -32,6 +32,6 @@ public class PlayerDataManager : MonoBehaviour
 
     public void PlayerDataInit()
     {
-        playerData = new PlayerData("Player", 1, GameManager.instance.GetDefaultChara());
+        playerData = new PlayerData("Player", 1, GameManager.instance.GetDefaultCharaDatabase());
     }
 }

@@ -11,13 +11,15 @@ public struct DialogueImages
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField] private GameObject dialogueModalUIPrefab;
+    [SerializeField] private SODialogueLines dialogueLines;
     private GameObject dialogueObject;
     private DialoguePanel dialogueUI;
-    public bool isOpen = false;
     private int dialogueIndex = 0;
+
+    public bool CanManuallySkip = false;
+    public bool isOpen = false;
     public bool ObjectDestroyed = false;
     public bool DialogueEnd = false;
-    [SerializeField] private SODialogueLines dialogueLines;
     public UnityEvent onDialogueEnded;
 
     public void ExecuteInteractable()
@@ -29,7 +31,11 @@ public class DialogueManager : MonoBehaviour
             dialogueObject = Instantiate(dialogueModalUIPrefab);
             dialogueUI = dialogueObject.GetComponentInChildren<DialoguePanel>();
             dialogueUI.SetDialogueUI(dialogueLines.dialogues[0]);
-            dialogueUI.OnNextDialogueButtonPressed += NextDialogue;
+
+            GameManager.instance.SwitchActionMaps("Dialogue");
+
+            if(CanManuallySkip)
+                dialogueUI.OnNextDialogueButtonPressed += NextDialogue;
         }
     }
 
@@ -49,7 +55,11 @@ public class DialogueManager : MonoBehaviour
 
     private void EndDialogue()
     {
-        dialogueUI.OnNextDialogueButtonPressed -= NextDialogue;
+        if(CanManuallySkip)
+            dialogueUI.OnNextDialogueButtonPressed -= NextDialogue;
+
+        GameManager.instance.SwitchActionMaps("Player");
+
         onDialogueEnded?.Invoke();
         gameObject.SetActive(false);
         ObjectDestroyed = true;
